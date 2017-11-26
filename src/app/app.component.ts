@@ -3,7 +3,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
-
 import { FirstRunPage } from '../pages/pages';
 import { Settings } from '../providers/providers';
 
@@ -31,8 +30,7 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
-  pages: any[] = [
-    { title: 'Tutorial', component: 'TutorialPage' },
+  pages: any[] = [    
     { title: 'Welcome', component: 'WelcomePage' },
     { title: 'Tabs', component: 'TabsPage' },
     { title: 'Cards', component: 'CardsPage' },

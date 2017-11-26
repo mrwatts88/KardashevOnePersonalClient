@@ -13,6 +13,9 @@ import { Settings } from '../providers/providers';
 import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
+import { ScreenOrientation } from '@ionic-native/screen-orientation'
+import { DeliverySend } from '../providers/delivery-send/delivery-send';
+import { AddItemPage } from '../pages/add-item/add-item';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -37,7 +40,8 @@ export function provideSettings(storage: Storage) {
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    AddItemPage
   ],
   imports: [
     BrowserModule,
@@ -54,18 +58,21 @@ export function provideSettings(storage: Storage) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    AddItemPage
   ],
   providers: [
     Api,
     Items,
     User,
     Camera,
+    ScreenOrientation,
     SplashScreen,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    DeliverySend
   ]
 })
 export class AppModule { }

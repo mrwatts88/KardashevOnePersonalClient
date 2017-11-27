@@ -1,9 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
-import { IonicPage, NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 
-@IonicPage()
 @Component({
   selector: 'page-item-create',
   templateUrl: 'item-create.html'
@@ -21,7 +20,11 @@ export class ItemCreatePage {
     this.form = formBuilder.group({
       profilePic: [''],
       name: ['', Validators.required],
-      about: ['']
+      message: [''],
+      height: ['', Validators.required],
+      width: ['', Validators.required],
+      length: ['', Validators.required],
+      weight: ['', Validators.required]
     });
 
     // Watch the form for changes, and

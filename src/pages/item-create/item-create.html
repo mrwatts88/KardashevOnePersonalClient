@@ -32,8 +32,24 @@
         <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
       <ion-item>
-          <ion-label fixed>{{ 'ITEM_ABOUT_PLACEHOLDER' | translate }}</ion-label>
-        <ion-input type="text" formControlName="about"></ion-input>
+          <ion-label fixed>Message</ion-label>
+        <ion-input type="text" formControlName="message"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Length</ion-label> 
+        <ion-input type="text" formControlName="length"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label fixed>Width</ion-label>
+        <ion-input type="text" formControlName="width"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Height</ion-label> 
+        <ion-input type="text" formControlName="height"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label fixed>Weight</ion-label>
+        <ion-input type="text" formControlName="weight"></ion-input>
       </ion-item>
     </ion-list>
     <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />

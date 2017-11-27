@@ -16,9 +16,6 @@ export class DeliverySend {
   constructor(public http: HttpClient) {
     
   }
-
-  
-
 }
 
 export class Item{
@@ -27,17 +24,9 @@ export class Item{
   private width: number;
   private height: number;
   private weight: number;
-  private message: string;
+  public message: string;
   private static DIM_UNITS: string = "inches"
   private static WEIGHT_UNITS: string = "pounds"
 
-  constructor(){
-
-  }
-
-  private toString():string{
-    return `Length: ${this.length}  Width: ${this.width} Height: ${this.height} Weight ${this.weight}\n
-    ${this.message}`;
-  }
-
+  constructor(){ }
 }

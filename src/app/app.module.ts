@@ -16,6 +16,7 @@ import { MyApp } from './app.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
 import { DeliverySend } from '../providers/delivery-send/delivery-send';
 import { AddItemPage } from '../pages/add-item/add-item';
+import { ItemCreatePage } from '../pages/item-create/item-create';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -41,7 +42,8 @@ export function provideSettings(storage: Storage) {
 @NgModule({
   declarations: [
     MyApp,
-    AddItemPage
+    AddItemPage,
+    ItemCreatePage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ export function provideSettings(storage: Storage) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AddItemPage
+    AddItemPage,
+    ItemCreatePage
   ],
   providers: [
     Api,

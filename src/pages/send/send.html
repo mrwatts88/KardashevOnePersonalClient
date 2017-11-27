@@ -13,7 +13,7 @@
       </ion-item>    
     </ion-list>
     
-    <div class="profile-image-wrapper" *ngIf="deliveryInfo.items.length <= 0" (click)="addItem()">
+    <div class="profile-image-wrapper" *ngIf="deliveryInfo.items.length <= 0" (click)="showAddItemPage()">
       <div class="profile-image-placeholder">
         <ion-icon name="add"></ion-icon>
         <div>
@@ -22,14 +22,20 @@
       </div>
     </div>
 
+    
+    <p class="gray-text" *ngIf="deliveryInfo.items.length > 0">
+      Items to Send:
+    </p>
+
     <ion-list>
-        <ion-item *ngFor="let item of deliveryInfo.items">
+        <ion-item *ngFor="let item of deliveryInfo.items; let i = index">
           <ion-avatar item-start>
             <img src="../../assets/img/mcrib.jpg">
           </ion-avatar>
-          <h2>{{item.name}}</h2>
-          <h3>Don't Know What To Do!</h3>
-          <p>I've had a pretty messed up day. If we just...</p>
+          <h2>{{item.name}}</h2>          
+          <p>{{item.message}}</p>
+          <ion-icon item-end name="close" (click)="removeItem(i)"></ion-icon>
+          
         </ion-item>
       </ion-list>
 

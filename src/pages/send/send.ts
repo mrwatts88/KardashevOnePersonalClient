@@ -4,7 +4,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation'; // Require
 import { Platform } from 'ionic-angular';
 import { DeliverySend } from '../../providers/delivery-send/delivery-send';
 import { Item } from '../../providers/delivery-send/delivery-send';
-import { AddItemPage } from '../add-item/add-item'
+import { ItemCreatePage } from '../item-create/item-create'
 
 /**
  * Generated class for the SendPage page.
@@ -34,17 +34,22 @@ export class SendPage {
   ionViewDidLoad() { }
 
   private showAddItemPage():void{
-    this.navCtrl.push(AddItemPage);
+    this.navCtrl.push(ItemCreatePage);
   }
 
   private addItem():void{    
      let item = new Item();
-     item.name = "hello";
+     item.name = "McRib";
+     item.message = "You forgot your McRib at home."
      this.deliveryInfo.items.push(item);
   }
 
   private cancelDelivery():void{
     this.deliveryInfo.recipient = "";
     this.deliveryInfo.items = [];
+  }
+
+  private removeItem(itemIndex){
+    this.deliveryInfo.items.splice(itemIndex, 1);
   }
 }

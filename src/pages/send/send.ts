@@ -6,14 +6,7 @@ import { DeliverySend } from '../../providers/delivery-send/delivery-send';
 import { Item } from '../../providers/delivery-send/delivery-send';
 import { ItemCreatePage } from '../item-create/item-create'
 
-/**
- * Generated class for the SendPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-send',
   templateUrl: 'send.html',

@@ -5,6 +5,7 @@ import { Platform } from 'ionic-angular';
 import { DeliverySend } from '../../providers/delivery-send/delivery-send';
 import { Item } from '../../providers/delivery-send/delivery-send';
 import { ItemCreatePage } from '../item-create/item-create'
+import { ItemDetailPage } from '../item-detail/item-detail';
 
 @Component({
   selector: 'page-send',
@@ -49,7 +50,7 @@ export class SendPage {
   }
 
   openItem(item: Item) {
-    this.navCtrl.push('ItemDetailPage', {
+    this.navCtrl.push(ItemDetailPage, {
       item: item
     });
   }

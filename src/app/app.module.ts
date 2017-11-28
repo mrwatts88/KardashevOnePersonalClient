@@ -21,6 +21,8 @@ import { HistoryPage } from '../pages/history/history';
 import { SettingsPage } from '../pages/settings/settings';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -52,7 +54,9 @@ export function provideSettings(storage: Storage) {
     HistoryPage,
     SettingsPage,
     WelcomePage,
-    TabsPage
+    TabsPage,
+    LoginPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -76,7 +80,9 @@ export function provideSettings(storage: Storage) {
     HistoryPage,
     SettingsPage,
     WelcomePage,
-    TabsPage
+    TabsPage,
+    LoginPage,
+    SignupPage
   ],
   providers: [
     Api,

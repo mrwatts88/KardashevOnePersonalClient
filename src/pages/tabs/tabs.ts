@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { SendPage } from '../send/send';
 import { ReceivePage } from '../receive/receive';
 import { SettingsPage } from '../settings/settings';
 import { HistoryPage } from '../history/history';
 
-@IonicPage()
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html'

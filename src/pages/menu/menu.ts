@@ -1,7 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Nav, NavController } from 'ionic-angular';
+import { Nav, NavController } from 'ionic-angular';
 
-@IonicPage()
+
+// Not using this page currently. It is a side drawer menu.  Will probably change to this
+// from tabs at some point.
+
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html'

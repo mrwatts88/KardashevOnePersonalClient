@@ -23,6 +23,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { ItemDetailPage } from '../pages/item-detail/item-detail';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -56,7 +57,8 @@ export function provideSettings(storage: Storage) {
     WelcomePage,
     TabsPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    ItemDetailPage
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,8 @@ export function provideSettings(storage: Storage) {
     WelcomePage,
     TabsPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    ItemDetailPage
   ],
   providers: [
     Api,

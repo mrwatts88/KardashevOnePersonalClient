@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { leave } from '@angular/core/src/profile/wtf_impl';
 
 @Injectable()
 export class DeliverySend {

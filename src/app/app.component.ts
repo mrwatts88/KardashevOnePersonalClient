@@ -3,8 +3,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
-import { FirstRunPage } from '../pages/pages';
 import { Settings } from '../providers/settings/settings';
+import { WelcomePage } from '../pages/welcome/welcome';
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -26,7 +26,7 @@ import { Settings } from '../providers/settings/settings';
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = FirstRunPage;
+  rootPage = WelcomePage;
 
   @ViewChild(Nav) nav: Nav;
 

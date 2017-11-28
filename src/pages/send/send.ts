@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
+import { NavController, ModalController, NavParams } from 'ionic-angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation'; // Requires native plugin installation
 import { Platform } from 'ionic-angular';
 import { DeliverySend } from '../../providers/delivery-send/delivery-send';
 import { Item } from '../../providers/delivery-send/delivery-send';
 import { ItemCreatePage } from '../item-create/item-create'
-
 
 @Component({
   selector: 'page-send',
@@ -26,9 +25,6 @@ export class SendPage {
 
   ionViewDidLoad() { }
 
-
-
-
   private showAddItemPage():void{
     let addModal = this.modalCtrl.create(ItemCreatePage);
     addModal.onDidDismiss(item => {
@@ -37,9 +33,6 @@ export class SendPage {
       }
     })
     addModal.present();
-    
-    
-    //this.navCtrl.push(ItemCreatePage);
   }
 
   private addItem(item):void{         

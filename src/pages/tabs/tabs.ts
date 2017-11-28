@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { Tab1Root } from '../pages';
-import { Tab2Root } from '../pages';
-import { Tab3Root } from '../pages';
-import { Tab4Root } from '../pages';
+import { SendPage } from '../send/send';
+import { ReceivePage } from '../receive/receive';
+import { SettingsPage } from '../settings/settings';
+import { HistoryPage } from '../history/history';
 
 @IonicPage()
 @Component({
@@ -12,10 +12,10 @@ import { Tab4Root } from '../pages';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-  tab1Root: any = Tab1Root;
-  tab2Root: any = Tab2Root;
-  tab3Root: any = Tab3Root;
-  tab4Root: any = Tab4Root;
+  tab1Root: any = SendPage;
+  tab2Root: any = ReceivePage;
+  tab3Root: any = HistoryPage;
+  tab4Root: any = SettingsPage;
 
   tab1Title = " ";
   tab2Title = " ";

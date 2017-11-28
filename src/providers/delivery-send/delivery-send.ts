@@ -2,12 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { leave } from '@angular/core/src/profile/wtf_impl';
 
-/*
-  Generated class for the DeliverySendProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DeliverySend {
 

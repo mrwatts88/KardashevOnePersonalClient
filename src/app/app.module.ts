@@ -8,14 +8,12 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { Items } from '../mocks/providers/items';
-import { Settings } from '../providers/providers';
-import { User } from '../providers/providers';
-import { Api } from '../providers/providers';
+import { Settings } from '../providers/settings/settings';
+import { User } from '../providers/user/user';
+import { Api } from '../providers/api/api';
 import { MyApp } from './app.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
 import { DeliverySend } from '../providers/delivery-send/delivery-send';
-import { AddItemPage } from '../pages/add-item/add-item';
 import { ItemCreatePage } from '../pages/item-create/item-create';
 
 // The translate loader needs to know where to load i18n files
@@ -42,7 +40,6 @@ export function provideSettings(storage: Storage) {
 @NgModule({
   declarations: [
     MyApp,
-    AddItemPage,
     ItemCreatePage
   ],
   imports: [
@@ -61,12 +58,10 @@ export function provideSettings(storage: Storage) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AddItemPage,
     ItemCreatePage
   ],
   providers: [
     Api,
-    Items,
     User,
     Camera,
     ScreenOrientation,

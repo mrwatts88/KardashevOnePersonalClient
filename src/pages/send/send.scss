@@ -30,4 +30,12 @@ page-send {
       color: rgb(172, 172, 172);
       font-size: 1.2em;
     }
+
+    #hover-highlight :hover{
+      cursor: pointer;
+    }
+
+    .hover-pointer{
+      cursor: pointer;
+    }
 }

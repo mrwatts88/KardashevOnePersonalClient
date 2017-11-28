@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, NavParams } from 'ionic-angular';
+import { NavController, ModalController, NavParams, AlertController } from 'ionic-angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation'; // Requires native plugin installation
 import { Platform } from 'ionic-angular';
 import { DeliverySend } from '../../providers/delivery-send/delivery-send';
-import { Item } from '../../providers/delivery-send/delivery-send';
+import { Item } from '../../models/item';
 import { ItemCreatePage } from '../item-create/item-create'
-import { ItemDetailPage } from '../item-detail/item-detail';
+import { ItemDetailPage } from '../item-detail/item-detail'; 
 
 @Component({
   selector: 'page-send',
@@ -13,12 +13,12 @@ import { ItemDetailPage } from '../item-detail/item-detail';
 })
 export class SendPage {  
 
-  private deliveryInfo: { recipient: string, items: Item[] } = {
-    recipient: "2628946758",
+  deliveryInfo: { recipient: string, items: Item[] } = {
+    recipient: "",
     items: []
   };
 
-  constructor(public modalCtrl: ModalController, public deliverySend: DeliverySend, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation) {
+  constructor(public alertCtrl:AlertController, public modalCtrl: ModalController, public deliverySend: DeliverySend, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation) {
     if(this.plt.is('mobile')){
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     }
@@ -26,32 +26,65 @@ export class SendPage {
 
   ionViewDidLoad() { }
 
-  private showAddItemPage():void{
+  showAddItemPage():void{
     let addModal = this.modalCtrl.create(ItemCreatePage);
     addModal.onDidDismiss(item => {
       if (item) {
+        console.log(item);
         this.addItem(item);
       }
     })
     addModal.present();
   }
 
-  private addItem(item):void{         
+  addItem(item):void{         
     this.deliveryInfo.items.push(new Item(item));
   }
 
-  private cancelDelivery():void{
+  clearDelivery():void{
     this.deliveryInfo.recipient = "";
     this.deliveryInfo.items = [];
   }
 
-  private removeItem(itemIndex){
+  removeItem(itemIndex){
     this.deliveryInfo.items.splice(itemIndex, 1);
   }
 
-  openItem(item: Item) {
+  openItemDetail(item: Item) {
     this.navCtrl.push(ItemDetailPage, {
       item: item
     });
+  }
+
+  showConfirmSendDialog() {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      message: 'Do you want to request this delivery?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            // Do nothing
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {            
+            this.deliverySend.requestDelivery(this.deliveryInfo).subscribe(
+              (resp) => {
+                  console.log("im bakc bro");
+              }, (err) => {
+              
+            });;
+            this.deliveryInfo = {
+              recipient: "",
+              items: []
+            };
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

@@ -3,55 +3,45 @@
     <ion-title>Send</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content padding>
   <ion-list>
-    
-      <ion-item>
-        <ion-label fixed>To</ion-label>
-        <ion-input type="text" [(ngModel)]="deliveryInfo.recipient" placeholder="Enter phone #"></ion-input>
-      </ion-item>    
-    </ion-list>
-    
-    <div class="profile-image-wrapper" *ngIf="deliveryInfo.items.length <= 0" (click)="showAddItemPage()">
-      <div class="profile-image-placeholder">
-        <ion-icon name="add"></ion-icon>
-        <div>
-          Add Item
-        </div>
+    <ion-item>
+      <ion-label fixed>To</ion-label>
+      <ion-input type="text" [(ngModel)]="deliveryInfo.recipient" placeholder="Enter phone #"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div class="profile-image-wrapper" *ngIf="deliveryInfo.items.length <= 0" (click)="showAddItemPage()">
+    <div class="profile-image-placeholder">
+      <ion-icon name="add"></ion-icon>
+      <div>
+        Add Item
       </div>
     </div>
-
-    
-    <p class="gray-text" *ngIf="deliveryInfo.items.length > 0">
-      Items to Send:
-    </p>
-
-    <ion-list>
-        <ion-item *ngFor="let item of deliveryInfo.items; let i = index" (click)="openItem(item)">
-          <ion-avatar item-start>
-            <img src="../../assets/img/mcrib.jpg">
-          </ion-avatar>
-          <h2>{{item.name}}</h2>          
-          <p>{{item.message}}</p>
-          <ion-icon item-end name="close" (click)="removeItem(i)"></ion-icon>
-          
-        </ion-item>
-      </ion-list>
-
-     
-   
-      <ion-row *ngIf="deliveryInfo.items.length > 0" >
-          <ion-col col-6> 
-              <button ion-button color="primary" (click)="cancelDelivery()" class="btn-row">Cancel</button>
-          </ion-col>
-          <ion-col col-6>
-             <button ion-button color="primary" (click)="showConfirmSendDialog()" class="btn-row">Send</button>
-          </ion-col>
-        </ion-row>     
-     
-      <ion-fab right bottom *ngIf="deliveryInfo.items.length > 0" (click)="showAddItemPage()">
-          <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>          
-      </ion-fab>
-      
+  </div>
+  <p class="gray-text" *ngIf="deliveryInfo.items.length > 0">
+    Items to Send:
+  </p>
+  <ion-list>
+    <ion-item id="hover-highlight" *ngFor="let item of deliveryInfo.items; let i = index" (click)="openItemDetail(item)">
+      <ion-avatar item-start>
+        <img src={{item.profilePic}}>
+      </ion-avatar>
+      <h2>{{item.name}}</h2>
+      <p>{{item.message}}</p>
+      <ion-icon class="hover-pointer" item-end name="close" (click)="removeItem(i)"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-row *ngIf="deliveryInfo.items.length > 0">
+    <ion-col col-6>
+      <button ion-button color="primary" (click)="clearDelivery()" class="btn-row">Cancel</button>
+    </ion-col>
+    <ion-col col-6>
+      <button ion-button color="primary" (click)="showConfirmSendDialog()" class="btn-row">Send</button>
+    </ion-col>
+  </ion-row>
+  <ion-fab right bottom *ngIf="deliveryInfo.items.length > 0" (click)="showAddItemPage()">
+    <button ion-fab color="primary">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

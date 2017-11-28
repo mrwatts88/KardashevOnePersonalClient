@@ -90,14 +90,14 @@ export function provideSettings(storage: Storage) {
   providers: [
     Api,
     User,
+    DeliverySend,
     Camera,
     ScreenOrientation,
     SplashScreen,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    DeliverySend
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
 export class AppModule { }

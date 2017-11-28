@@ -28,7 +28,7 @@
     </p>
 
     <ion-list>
-        <ion-item *ngFor="let item of deliveryInfo.items; let i = index">
+        <ion-item *ngFor="let item of deliveryInfo.items; let i = index" (click)="openItem(item)">
           <ion-avatar item-start>
             <img src="../../assets/img/mcrib.jpg">
           </ion-avatar>
@@ -50,7 +50,7 @@
           </ion-col>
         </ion-row>     
      
-      <ion-fab right bottom *ngIf="deliveryInfo.items.length > 0">
+      <ion-fab right bottom *ngIf="deliveryInfo.items.length > 0" (click)="showAddItemPage()">
           <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>          
       </ion-fab>
       

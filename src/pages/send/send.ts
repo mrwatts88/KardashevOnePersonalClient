@@ -61,4 +61,10 @@ export class SendPage {
   private removeItem(itemIndex){
     this.deliveryInfo.items.splice(itemIndex, 1);
   }
+
+  openItem(item: Item) {
+    this.navCtrl.push('ItemDetailPage', {
+      item: item
+    });
+  }
 }

@@ -29,6 +29,7 @@ import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AngularFireModule, FirebaseAppProvider } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { FCM } from '@ionic-native/fcm';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
@@ -116,7 +117,8 @@ export function provideSettings(storage: Storage) {
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     FirebaseProvider,
-    AngularFireDatabase
+    AngularFireDatabase,
+    FCM
   ]
 })
 export class AppModule { }

@@ -32,17 +32,19 @@ export class LoginPage {
 
   // Attempt to login in through our User service
   doLogin() {
-    this.user.login(this.account).subscribe((resp) => {
-      this.navCtrl.push(TabsPage);
-    }, (err) => {
-      this.navCtrl.push(TabsPage);
-      // Unable to log in
-      // let toast = this.toastCtrl.create({
-      //   message: this.loginErrorString,
-      //   duration: 3000,
-      //   position: 'bottom'
-      // });
-      // toast.present();
-    });
+    // change when login endpoint is up
+    this.navCtrl.push(TabsPage);
+    // this.user.login(this.account).subscribe((resp) => {
+    //   this.navCtrl.push(TabsPage);
+    // }, (err) => {
+    //   this.navCtrl.push(TabsPage);
+    //   // Unable to log in
+    //   // let toast = this.toastCtrl.create({
+    //   //   message: this.loginErrorString,
+    //   //   duration: 3000,
+    //   //   position: 'bottom'
+    //   // });
+    //   // toast.present();
+    // });
   }
 }

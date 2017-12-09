@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
@@ -20,13 +19,13 @@
   <script src="cordova.js"></script>
 
   <!-- un-comment this code to enable service worker -->
-  <!-- <script>
+  <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('firebase-messaging-sw.js')
         .then(() => console.log('service worker installed'))
-        .catch(err => console.error('Error', err));
+        .catch(err => console.log('Error1' + err));
     }
-  </script> -->
+  </script>
 
   <link href="build/main.css" rel="stylesheet">
 
@@ -35,7 +34,7 @@
     // Initialize Firebase
     // TODO: Replace with your project's customized code snippet
     var config = {
-      apiKey: "<AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g>",
+      apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
       authDomain: "kardashevonefirebase.firebaseapp.com",
       //databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
       //storageBucket: "<BUCKET>.appspot.com",
@@ -43,38 +42,6 @@
     };
     firebase.initializeApp(config);
   </script>
-
-  <!-- <script>const messaging = firebase.messaging();
-    messaging.requestPermission().then(function () {
-      console.log("Notification permission granted.");
-      // Get Instance ID token. Initially this makes a network call, once retrieved
-      // subsequent calls to getToken will return from cache.
-      messaging.getToken()
-        .then(function (currentToken) {
-          if (currentToken) {
-            console.log(currentToken);
-            sendTokenToServer(currentToken);
-            updateUIForPushEnabled(currentToken);
-          } else {
-            // Show permission request.
-            console.log('No Instance ID token available. Request permission to generate one.');
-            // Show permission UI.
-            updateUIForPushPermissionRequired();
-            setTokenSentToServer(false);
-          }
-        })
-        .catch(function (err) {
-          console.log('An error occurred while retrieving token. ', err);
-          showToken('Error retrieving Instance ID token. ', err);
-          setTokenSentToServer(false);
-        });
-    }).catch(function (err) {
-      console.log('Unable to get permission to notify.', err);
-    })
-
-
-  </script> -->
-
 </head>
 
 <body>
@@ -106,35 +73,34 @@
     messaging.requestPermission()
       .then(function () {
         console.log('Notification permission granted.');
-        // TODO(developer): Retrieve an Instance ID token for use with FCM.
-        // [START get_token]
-        // Get Instance ID token. Initially this makes a network call, once retrieved
-        // subsequent calls to getToken will return from cache.
         messaging.getToken()
-          .then(function (currentToken) {
-            if (currentToken) {
-              sendTokenToServer(currentToken);
-            } else {
-              // Show permission request.
-              console.log('No Instance ID token available. Request permission to generate one.');
-              // Show permission UI.
-              setTokenSentToServer(false);
-            }
-          })
-          .catch(function (err) {
-            console.log('An error occurred while retrieving token. ', err);
+        .then(function (currentToken) {
+          if (currentToken) {
+            console.log("got a token");
+            sendTokenToServer(currentToken);
+          } else {
+            // Show permission request.
+            console.log('No Instance ID token available. Request permission to generate one.');
+            // Show permission UI.
             setTokenSentToServer(false);
-          });
+          }
+        })
+        .catch(function (err) {
+          console.log('An error occurred while retrieving token. ', err);
+          setTokenSentToServer(false);
+        });
+
+
+  // [END get_token]
+
+       
       })
       .catch(function (err) {
         console.log('Unable to get permission to notify.', err);
       });
     // [END get_messaging_object]
 
-
-
-    // [END get_token]
-
+   
     // [START refresh_token]
     // Callback fired if Instance ID token is updated.
     messaging.onTokenRefresh(function () {
@@ -145,6 +111,7 @@
           // app server.
           setTokenSentToServer(false);
           // Send Instance ID token to app server.
+
           sendTokenToServer(refreshedToken);
 
         })

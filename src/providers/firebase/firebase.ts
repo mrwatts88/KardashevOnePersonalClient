@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FirebaseApp } from "angularfire2";
+import { FirebaseApp } from 'angularfire2';
+import { Api } from '../api/api';
 import * as firebase from 'firebase';
 
 @Injectable()
@@ -8,7 +9,7 @@ export class FirebaseProvider {
 
   private messaging: firebase.messaging.Messaging;
 
-  constructor(private _firebaseApp: FirebaseApp) { }
+  constructor(private _firebaseApp: FirebaseApp, private api:Api) { }
 
   init() {
     this.messaging = firebase.messaging(this._firebaseApp);
@@ -64,6 +65,9 @@ export class FirebaseProvider {
     // - send messages back to this app
     // - subscribe/unsubscribe the token from topics
     function sendTokenToServer(currentToken) {
+      self.api.post('test', {'token': currentToken}).subscribe(function(){
+        console.log("req sent");
+      });
       console.log(currentToken);
       if (!isTokenSentToServer()) {
         console.log('Sending token to server...');

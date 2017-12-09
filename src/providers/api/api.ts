@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Api {
   //url: string = 'https://example.com/api';
-  url: string = 'https://requestb.in'
+  url: string = 'http://localhost:3000'
 
   constructor(public http: HttpClient) {
   }
@@ -15,7 +15,8 @@ export class Api {
   get(endpoint: string, params?: any, reqOpts?: any) {
     if (!reqOpts) {
       reqOpts = {
-        params: new HttpParams()
+        params: new HttpParams(),
+        responseType:'text'
       };
     }
 
@@ -23,14 +24,19 @@ export class Api {
     if (params) {
       reqOpts.params = new HttpParams();
       for (let k in params) {
-        reqOpts.params.set(k, params[k]);
+        console.log(params[k]);
+        reqOpts.params = reqOpts.params.append(k, params[k]);
+        console.log(reqOpts.params);
+
       }
     }
-    console.log(this.url + '/' + endpoint);
     return this.http.get(this.url + '/' + endpoint, reqOpts);
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
+    reqOpts = {
+      responseType:'text'
+    }
     console.log(this.url + '/' + endpoint)
     return this.http.post(this.url + '/' + endpoint, body, reqOpts);
   }

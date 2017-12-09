@@ -16,8 +16,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
   <!-- cordova.js required for cordova apps (remove if not needed) -->
-  <script src="cordova.js"></script>
-
+  <script src="cordova.js"></script>  
+  
   <!-- un-comment this code to enable service worker -->
   <script>
     if ('serviceWorker' in navigator) {
@@ -28,24 +28,8 @@
   </script>
 
   <link href="build/main.css" rel="stylesheet">
-
-  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    // TODO: Replace with your project's customized code snippet
-    var config = {
-      apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
-      authDomain: "kardashevonefirebase.firebaseapp.com",
-      //databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-      //storageBucket: "<BUCKET>.appspot.com",
-      messagingSenderId: "471510457689",
-    };
-    firebase.initializeApp(config);
-  </script>
 </head>
-
 <body>
-
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
 
@@ -58,132 +42,5 @@
 
   <!-- The main bundle js is generated during the build process -->
   <script src="build/main.js"></script>
-
-  <!-- Import and configure the Firebase SDK -->
-  <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-  <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-  <script src="/__/firebase/3.9.0/firebase-app.js"></script>
-  <script src="/__/firebase/3.9.0/firebase-messaging.js"></script>
-  <script src="/__/firebase/init.js"></script>
-
-  <script>
-    // [START get_messaging_object]
-    // Retrieve Firebase Messaging object.
-    const messaging = firebase.messaging();
-    messaging.requestPermission()
-      .then(function () {
-        console.log('Notification permission granted.');
-        messaging.getToken()
-        .then(function (currentToken) {
-          if (currentToken) {
-            console.log("got a token");
-            sendTokenToServer(currentToken);
-          } else {
-            // Show permission request.
-            console.log('No Instance ID token available. Request permission to generate one.');
-            // Show permission UI.
-            setTokenSentToServer(false);
-          }
-        })
-        .catch(function (err) {
-          console.log('An error occurred while retrieving token. ', err);
-          setTokenSentToServer(false);
-        });
-
-
-  // [END get_token]
-
-       
-      })
-      .catch(function (err) {
-        console.log('Unable to get permission to notify.', err);
-      });
-    // [END get_messaging_object]
-
-   
-    // [START refresh_token]
-    // Callback fired if Instance ID token is updated.
-    messaging.onTokenRefresh(function () {
-      messaging.getToken()
-        .then(function (refreshedToken) {
-          console.log('Token refreshed.');
-          // Indicate that the new Instance ID token has not yet been sent to the
-          // app server.
-          setTokenSentToServer(false);
-          // Send Instance ID token to app server.
-
-          sendTokenToServer(refreshedToken);
-
-        })
-        .catch(function (err) {
-          console.log('Unable to retrieve refreshed token ', err);
-        });
-    });
-    // [END refresh_token]
-    // [START receive_message]
-    // Handle incoming messages. Called when:
-    // - a message is received while the app has focus
-    // - the user clicks on an app notification created by a sevice worker
-    //   `messaging.setBackgroundMessageHandler` handler.
-    messaging.onMessage(function (payload) {
-      console.log("Message received. ", payload);
-    });
-    // [END receive_message]
-
-
-
-    // Send the Instance ID token your application server, so that it can:
-    // - send messages back to this app
-    // - subscribe/unsubscribe the token from topics
-    function sendTokenToServer(currentToken) {
-      if (!isTokenSentToServer()) {
-        console.log('Sending token to server...');
-        // TODO(developer): Send the current token to your server.
-        setTokenSentToServer(true);
-      } else {
-        console.log('Token already sent to server so won\'t send it again ' +
-          'unless it changes');
-      }
-    }
-
-    function isTokenSentToServer() {
-      return window.localStorage.getItem('sentToServer') == 1;
-    }
-
-    function setTokenSentToServer(sent) {
-      window.localStorage.setItem('sentToServer', sent ? 1 : 0);
-    }
-
-
-    function deleteToken() {
-      // Delete Instance ID token.
-      // [START delete_token]
-      messaging.getToken()
-        .then(function (currentToken) {
-          messaging.deleteToken(currentToken)
-            .then(function () {
-              console.log('Token deleted.');
-              setTokenSentToServer(false);
-              // [START_EXCLUDE]
-              // Once token is deleted update UI.
-              resetUI();
-              // [END_EXCLUDE]
-            })
-            .catch(function (err) {
-              console.log('Unable to delete token. ', err);
-            });
-          // [END delete_token]
-        })
-        .catch(function (err) {
-          console.log('Error retrieving Instance ID token. ', err);
-        });
-    }
-
-
-
-
-  </script>
-
 </body>
-
 </html>

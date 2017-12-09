@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FirebaseProvider } from './../../providers/firebase/firebase';
 
 /*
   Generated class for the DeliveryReceiveProvider provider.

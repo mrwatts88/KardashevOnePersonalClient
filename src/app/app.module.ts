@@ -25,6 +25,18 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive';
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { AngularFireModule, FirebaseAppProvider } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
+  authDomain: "kardashevonefirebase.firebaseapp.com",
+  //databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+  //storageBucket: "<BUCKET>.appspot.com",
+  messagingSenderId: "471510457689",
+};
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -70,9 +82,12 @@ export function provideSettings(storage: Storage) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    }),
+    }),   
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -100,6 +115,8 @@ export function provideSettings(storage: Storage) {
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    FirebaseProvider,
+    AngularFireDatabase
   ]
 })
 export class AppModule { }

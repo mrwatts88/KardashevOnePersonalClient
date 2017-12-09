@@ -61,15 +61,12 @@ export class FirebaseProvider {
     // - subscribe/unsubscribe the token from topics
     function sendTokenToServer(currentToken) {
       self.api.post('test', {'token': currentToken}).subscribe(function(){
-        console.log("req sent");
       });
-      console.log(currentToken);
       if (!isTokenSentToServer()) {
-        console.log('Sending token to server...');
+        // Move post request into if block for production
         setTokenSentToServer(true);
       } else {
-        console.log('Token already sent to server so won\'t send it again ' +
-          'unless it changes ');
+
       }
     }
 

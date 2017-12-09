@@ -8,7 +8,6 @@ import * as firebase from 'firebase';
 export class FirebaseProvider {
 
   private messaging: firebase.messaging.Messaging;
-
   constructor(private _firebaseApp: FirebaseApp, private api:Api) { }
 
   init() {
@@ -20,18 +19,14 @@ export class FirebaseProvider {
         self.messaging.getToken()
           .then(function (currentToken) {
             if (currentToken) {
-              console.log("got a token");
               sendTokenToServer(currentToken);
             } else {
-              // Show permission request.
-              console.log('No Instance ID token available. Request permission to generate one.');
-              // Show permission UI.
-              //setTokenSentToServer(false);
+              setTokenSentToServer(false);
             }
           })
           .catch(function (err) {
             console.log('An error occurred while retrieving token. ', err);
-            //setTokenSentToServer(false);
+            setTokenSentToServer(false);
           });
       }).catch(function (err) {
         console.log('Unable to get permission to notify.', err);
@@ -44,7 +39,7 @@ export class FirebaseProvider {
           console.log('Token refreshed.');
           // Indicate that the new Instance ID token has not yet been sent to the
           // app server.
-          //setTokenSentToServer(false);
+          setTokenSentToServer(false);
           // Send Instance ID token to app server.
           sendTokenToServer(refreshedToken);
         })
@@ -61,7 +56,7 @@ export class FirebaseProvider {
       console.log("Message received. ", payload);
     });
 
-    // Send the Instance ID token your application server, so that it can:
+    // Send the Instance ID token to the application server, so that it can:
     // - send messages back to this app
     // - subscribe/unsubscribe the token from topics
     function sendTokenToServer(currentToken) {

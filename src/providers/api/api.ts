@@ -19,9 +19,7 @@ export class Api {
     if (params) {
       reqOpts.params = new HttpParams();
       for (let k in params) {
-        console.log(params[k]);
         reqOpts.params = reqOpts.params.append(k, params[k]);
-        console.log(reqOpts.params);
 
       }
     }
@@ -32,7 +30,6 @@ export class Api {
     reqOpts = {
       responseType:'text'
     }
-    console.log(this.url + '/' + endpoint)
     return this.http.post(this.url + '/' + endpoint, body, reqOpts);
   }
 

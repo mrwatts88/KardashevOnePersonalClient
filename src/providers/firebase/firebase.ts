@@ -14,6 +14,15 @@ export class FirebaseProvider {
     this.messaging = firebase.messaging(this._firebaseApp);
     let self = this;
 
+
+    // Handle incoming messages. Called when:
+    // - a message is received while the app has focus
+    // - the user clicks on an app notification created by a sevice worker
+    //   `messaging.setBackgroundMessageHandler` handler.
+    this.messaging.onMessage((payload) => {
+      console.log("Message received. howdy doody ", payload);
+    });
+
     this.messaging.requestPermission()
       .then(function () {
         self.messaging.getToken()
@@ -46,14 +55,6 @@ export class FirebaseProvider {
         .catch(function (err) {
           console.log('Unable to retrieve refreshed token ', err);
         });
-    });
-
-    // Handle incoming messages. Called when:
-    // - a message is received while the app has focus
-    // - the user clicks on an app notification created by a sevice worker
-    //   `messaging.setBackgroundMessageHandler` handler.
-    this.messaging.onMessage(function (payload) {
-      console.log("Message received. ", payload);
     });
 
     // Send the Instance ID token to the application server, so that it can:

@@ -24,6 +24,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
+import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -91,13 +92,14 @@ export function provideSettings(storage: Storage) {
     Api,
     User,
     DeliverySend,
+    DeliveryReceive,
     Camera,
     ScreenOrientation,
     SplashScreen,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]
 })
 export class AppModule { }

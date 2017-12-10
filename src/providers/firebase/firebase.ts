@@ -1,22 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FirebaseApp } from 'angularfire2';
 import { Api } from '../api/api';
 import * as firebase from 'firebase';
-
 import { FCM } from '@ionic-native/fcm';
 import { Platform } from 'ionic-angular';
-
-
 
 @Injectable()
 export class FirebaseProvider {
 
   private messaging: firebase.messaging.Messaging;
-  constructor(public plt: Platform, private fcm: FCM, private _firebaseApp: FirebaseApp, private api: Api) { }
+  constructor(public plt: Platform, private fcm: FCM, private api: Api) { }
 
   init() {
-    this.messaging = firebase.messaging(this._firebaseApp);
+    this.messaging = firebase.messaging();
     let self = this;
 
 

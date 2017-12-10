@@ -26,10 +26,8 @@ import { SignupPage } from '../pages/signup/signup';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive';
 import { FirebaseProvider } from '../providers/firebase/firebase';
-import { AngularFireModule, FirebaseAppProvider } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FCM } from '@ionic-native/fcm';
+import * as firebase from 'firebase';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
@@ -38,6 +36,9 @@ const firebaseConfig = {
   //storageBucket: "<BUCKET>.appspot.com",
   messagingSenderId: "471510457689",
 };
+
+firebase.initializeApp(firebaseConfig);
+
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -54,7 +55,7 @@ export function provideSettings(storage: Storage) {
    */
   return new Settings(storage, {
     option1: true,
-    option2: 'Ionitron J. Framework',
+    option2: 'Test',
     option3: '3',
     option4: 'Hello'
   });
@@ -85,10 +86,7 @@ export function provideSettings(storage: Storage) {
       }
     }),   
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -117,7 +115,6 @@ export function provideSettings(storage: Storage) {
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     FirebaseProvider,
-    AngularFireDatabase,
     FCM
   ]
 })

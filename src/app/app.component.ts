@@ -1,3 +1,5 @@
+// Contains only a slide in menu and sets the nav root so the app knows what page to start on
+
 import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -31,6 +33,7 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
+  // used for slide in menu (not currently being used)
   pages: any[] = [
     { title: 'Welcome', component: 'WelcomePage' },
     { title: 'Tabs', component: 'TabsPage' },

@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { User } from '../../providers/user/user';
 import { TabsPage } from '../tabs/tabs';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'page-login',
@@ -25,26 +26,23 @@ export class LoginPage {
     public toastCtrl: ToastController,
     public translateService: TranslateService) {
 
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
+    this.translateService.get('LOGIN_ERROR').subscribe((value) => {      
       this.loginErrorString = value;
     })
   }
 
   // Attempt to login in through our User service
   doLogin() {
-    // change when login endpoint is up
-    this.navCtrl.push(TabsPage);
-    // this.user.login(this.account).subscribe((resp) => {
-    //   this.navCtrl.push(TabsPage);
-    // }, (err) => {
-    //   this.navCtrl.push(TabsPage);
-    //   // Unable to log in
-    //   // let toast = this.toastCtrl.create({
-    //   //   message: this.loginErrorString,
-    //   //   duration: 3000,
-    //   //   position: 'bottom'
-    //   // });
-    //   // toast.present();
-    // });
+    this.user.login(this.account).then((user)=>{
+      this.navCtrl.push(TabsPage);
+    }).catch((err)=>{
+      let toast = this.toastCtrl.create({
+            message: this.loginErrorString,
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
+      console.log(err);
+    });
   }
 }

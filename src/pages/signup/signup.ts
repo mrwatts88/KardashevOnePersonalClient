@@ -33,14 +33,12 @@ export class SignupPage {
   }
 
   doSignup() {
-    // Attempt to login in through our User service
-    this.user.signup(this.account).subscribe((resp) => {
+    this.user.signup(this.account).then((user)=>{
       this.navCtrl.push(TabsPage);
-    }, (err) => {
-      //this.navCtrl.push(TabsPage);
-      // Unable to sign up
+    }).catch((err)=>{
+      console.log(err);
       let toast = this.toastCtrl.create({
-        message: this.signupErrorString,
+        message: err,
         duration: 3000,
         position: 'bottom'
       });

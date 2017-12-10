@@ -73,7 +73,7 @@ export class SendPage {
           handler: () => {            
             this.deliverySend.requestDelivery(this.deliveryInfo).subscribe(
               (resp) => {
-                  console.log("im bakc bro");
+                  console.log(resp);
               }, (err) => {
               
             });;

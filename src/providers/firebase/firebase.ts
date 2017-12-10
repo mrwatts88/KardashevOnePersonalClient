@@ -69,7 +69,7 @@ export class FirebaseProvider {
     // - subscribe/unsubscribe the token from topics
     function sendTokenToServer(currentToken) {
       if (!isTokenSentToServer()) {
-        self.api.post('test', { 'token': currentToken }).subscribe(res => { });
+        self.api.post('fcmtoken', { 'token': currentToken }).subscribe(res => { });
         // Move post request into if block for production
         setTokenSentToServer(true);
       } else { }

@@ -1,8 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FirebaseProvider } from './../../providers/firebase/firebase';
+import { Api } from '../api/api';
 
 @Injectable()
 export class DeliveryReceive {
-  constructor(public http: HttpClient) { }
+  constructor(public api: Api) { }
+
+  getPendingDeliveries() {
+    return this.api.get('pending');
+  }
 }

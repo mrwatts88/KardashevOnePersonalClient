@@ -8,27 +8,21 @@ export class Api {
 
   constructor(public http: HttpClient) { }
 
-  get(endpoint: string, params?: any, reqOpts?: any) {
-    if (!reqOpts) {
-      reqOpts = {
-        params: new HttpParams(),
-        responseType:'text'
-      };
+  get(endpoint: string, _params?: any, reqOpts?: any) {
+
+    reqOpts = {
+      'params': new HttpParams()
+    }
+    for (let k in _params) {
+      reqOpts.params = reqOpts.params.append(k, _params[k]);
     }
 
-    if (params) {
-      reqOpts.params = new HttpParams();
-      for (let k in params) {
-        reqOpts.params = reqOpts.params.append(k, params[k]);
-
-      }
-    }
-    return this.http.get(this.url + '/' + endpoint, reqOpts);
+    return this.http.get(this.url + '/' + endpoint, { responseType: 'json', params: _params });
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
     reqOpts = {
-      responseType:'text'
+      responseType: 'text'
     }
     return this.http.post(this.url + '/' + endpoint, body, reqOpts);
   }

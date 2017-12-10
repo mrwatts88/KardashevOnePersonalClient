@@ -6,10 +6,6 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'receive.html',
 })
 export class ReceivePage {
-
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ReceivePage');
-  }
+  ionViewDidLoad() { } //TODO: check when this should be used
 }

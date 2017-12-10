@@ -10,12 +10,9 @@ import * as firebase from 'firebase';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
   account: { email: string, password: string } = {
-    email: 'mattwatts@gmail.com',
-    password: 'mypassword'
+    email: 'mrwatts@uwm.edu',
+    password: 'password'
   };
 
   // Our translated text strings
@@ -25,24 +22,20 @@ export class LoginPage {
     public user: User,
     public toastCtrl: ToastController,
     public translateService: TranslateService) {
-
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {      
-      this.loginErrorString = value;
-    })
+    this.translateService.get('LOGIN_ERROR').subscribe(value => this.loginErrorString = value);
   }
 
   // Attempt to login in through our User service
   doLogin() {
-    this.user.login(this.account).then((user)=>{
-      this.navCtrl.push(TabsPage);
-    }).catch((err)=>{
+    this.user.login(this.account)
+    .then(user => this.navCtrl.push(TabsPage))
+    .catch(err => {
       let toast = this.toastCtrl.create({
-            message: this.loginErrorString,
-            duration: 3000,
-            position: 'bottom'
-          });
-          toast.present();
-      console.log(err);
+        message: this.loginErrorString,
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
     });
   }
 }

@@ -14,9 +14,9 @@ export class SignupPage {
   // sure to add it to the type
   account: { name: string, email: string, username: string, password: string } = {
     name: 'Matt Watts',
-    email: 'mattwatts@gmail.com',
+    email: 'mrwatts@uwm.edu',
     username: 'mrwatts',
-    password: 'mypassword'
+    password: 'password'
   };
 
   // Our translated text strings
@@ -27,15 +27,13 @@ export class SignupPage {
     public toastCtrl: ToastController,
     public translateService: TranslateService) {
 
-    this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
-      this.signupErrorString = value;
-    })
+    this.translateService.get('SIGNUP_ERROR').subscribe(value => this.signupErrorString = value);
   }
 
   doSignup() {
-    this.user.signup(this.account).then((user)=>{
-      this.navCtrl.push(TabsPage);
-    }).catch((err)=>{
+    this.user.signup(this.account)
+    .then(user => this.navCtrl.push(TabsPage))
+    .catch(err => {
       console.log(err);
       let toast = this.toastCtrl.create({
         message: err,

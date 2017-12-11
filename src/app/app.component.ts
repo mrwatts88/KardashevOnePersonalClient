@@ -47,14 +47,15 @@ export class MyApp {
   ]
 
   constructor(private firebase: FirebaseProvider, private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+    // TODO: Learn about when to use this
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault()
       this.splashScreen.hide()
+      this.firebase.initFCM()
     })
     this.initTranslate()
-    this.firebase.initFCM()
   }
 
   initTranslate() {

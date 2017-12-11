@@ -7,10 +7,10 @@
   <ion-list>
     <ion-item>
       <ion-label fixed>To</ion-label>
-      <ion-input type="text" [(ngModel)]="deliveryInfo.recipient" placeholder="Enter phone #"></ion-input>
+      <ion-input type="text" [(ngModel)]="shipmentInfo.recipient" placeholder="Enter phone #"></ion-input>
     </ion-item>
   </ion-list>
-  <div class="profile-image-wrapper" *ngIf="deliveryInfo.items.length <= 0" (click)="showAddItemPage()">
+  <div class="profile-image-wrapper" *ngIf="shipmentInfo.items.length <= 0" (click)="showAddItemPage()">
     <div class="profile-image-placeholder">
       <ion-icon name="add"></ion-icon>
       <div>
@@ -18,11 +18,11 @@
       </div>
     </div>
   </div>
-  <p class="gray-text" *ngIf="deliveryInfo.items.length > 0">
+  <p class="gray-text" *ngIf="shipmentInfo.items.length > 0">
     Items to Send:
   </p>
   <ion-list>
-    <ion-item id="hover-highlight" *ngFor="let item of deliveryInfo.items; let i = index" (click)="openItemDetail(item)">
+    <ion-item id="hover-highlight" *ngFor="let item of shipmentInfo.items; let i = index" (click)="openItemDetail(item)">
       <ion-avatar item-start>
         <img src={{item.profilePic}}>
       </ion-avatar>
@@ -31,15 +31,15 @@
       <ion-icon class="hover-pointer" item-end name="close" (click)="removeItemFromShipment(i)"></ion-icon>
     </ion-item>
   </ion-list>
-  <ion-row *ngIf="deliveryInfo.items.length > 0">
+  <ion-row *ngIf="shipmentInfo.items.length > 0">
     <ion-col col-6>
-      <button ion-button color="primary" (click)="clearShipment()" class="btn-row">Cancel</button>
+      <button ion-button color="primary" (click)="resetShipment()" class="btn-row">Cancel</button>
     </ion-col>
     <ion-col col-6>
       <button ion-button color="primary" (click)="showConfirmSendDialog()" class="btn-row">Send</button>
     </ion-col>
   </ion-row>
-  <ion-fab right bottom *ngIf="deliveryInfo.items.length > 0" (click)="showAddItemPage()">
+  <ion-fab right bottom *ngIf="shipmentInfo.items.length > 0" (click)="showAddItemPage()">
     <button ion-fab color="primary">
       <ion-icon name="add"></ion-icon>
     </button>

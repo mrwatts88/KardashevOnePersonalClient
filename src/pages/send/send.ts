@@ -13,12 +13,28 @@ import { ItemDetailPage } from '../item-detail/item-detail'
 })
 export class SendPage {
   // TODO: Create a shipment class, add sender property
-  shipment: { recipient: string, items: Item[] } = {
-    recipient: "",
-    items: []
+  shipmentInfo : { recipient: string, items: Item[] }
+
+  confirmSendDialogContent : Object = {
+    title: 'Are you sure?',
+    message: 'Do you want to request this delivery?',
+    buttons: [
+      {
+        text: 'No',
+        role: 'cancel',
+        handler: () => { }
+      },
+      {
+        text: 'Yes',
+        handler: () => {
+          this.initShipment()
+        }
+      }
+    ]
   }
 
   constructor(public alertCtrl: AlertController, public modalCtrl: ModalController, public deliverySend: DeliverySend, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation) {
+    this.resetShipment()
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
@@ -35,16 +51,18 @@ export class SendPage {
   }
 
   addItemToShipment(item): void {
-    this.shipment.items.push(new Item(item))
+    this.shipmentInfo.items.push(new Item(item))
   }
 
-  clearShipment(): void {
-    this.shipment.recipient = ""
-    this.shipment.items = []
+  resetShipment(): void {
+    this.shipmentInfo = {
+      recipient: "",
+      items: []
+    }
   }
 
   removeItemFromShipment(itemIndex): void {
-    this.shipment.items.splice(itemIndex, 1)
+    this.shipmentInfo.items.splice(itemIndex, 1)
   }
 
   openItemDetail(item: Item) {
@@ -54,34 +72,13 @@ export class SendPage {
   }
 
   showConfirmSendDialog() {
-    let alert = this.alertCtrl.create({
-      title: 'Are you sure?',
-      message: 'Do you want to request this delivery?',
-      buttons: this.confirmSendDialogButtons
-    })
-    alert.present()
+    this.alertCtrl.create(this.confirmSendDialogContent).present()
   }
 
   initShipment() {
-    this.deliverySend.initShipment(this.shipment).subscribe(
+    this.deliverySend.initShipment(this.shipmentInfo).subscribe(
       resp => { }, err => { }
     )
-
-    this.shipment = {
-      recipient: "",
-      items: []
-    }
+    this.resetShipment()
   }
-
-  private confirmSendDialogButtons = [{
-    text: 'No',
-    role: 'cancel',
-    handler: () => { }
-  },
-  {
-    text: 'Yes',
-    handler: () => {
-      this.initShipment()
-    }
-  }]
 }

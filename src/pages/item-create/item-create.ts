@@ -14,7 +14,10 @@ export class ItemCreatePage {
   item: any
   form: FormGroup
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, public camera: Camera) {
+  constructor(public navCtrl: NavController,
+    public viewCtrl: ViewController,
+    public formBuilder: FormBuilder,
+    public camera: Camera) {
     this.form = formBuilder.group({
       profilePic: [''],
       name: ['', Validators.required],

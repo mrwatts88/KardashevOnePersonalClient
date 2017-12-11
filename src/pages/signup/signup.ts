@@ -27,7 +27,7 @@ export class SignupPage {
     this.translateService.get('SIGNUP_ERROR').subscribe(value => this.signupErrorString = value)
   }
 
-  doSignup() {
+  signup() {
     this.user.signup(this.account)
       .then(user => this.navCtrl.push(TabsPage))
       .catch(err => {

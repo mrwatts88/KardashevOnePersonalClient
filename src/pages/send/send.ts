@@ -11,39 +11,40 @@ import { ItemDetailPage } from '../item-detail/item-detail'
   selector: 'page-send',
   templateUrl: 'send.html',
 })
-export class SendPage {  
-  deliveryInfo: { recipient: string, items: Item[] } = {
+export class SendPage {
+  // TODO: Create a shipment class, add sender property
+  shipment: { recipient: string, items: Item[] } = {
     recipient: "",
     items: []
   }
 
-  constructor(public alertCtrl:AlertController, public modalCtrl: ModalController, public deliverySend: DeliverySend, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation) {
-    if(this.plt.is('mobile'))
+  constructor(public alertCtrl: AlertController, public modalCtrl: ModalController, public deliverySend: DeliverySend, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation) {
+    if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
-   }
+  }
 
   ionViewDidLoad() { }
 
-  showAddItemPage():void{
+  showAddItemPage(): void {
     let addModal = this.modalCtrl.create(ItemCreatePage)
     addModal.onDidDismiss(item => {
-      if (item) 
-        this.addItem(item)      
+      if (item)
+        this.addItemToShipment(item)
     })
     addModal.present()
   }
 
-  addItem(item):void{         
-    this.deliveryInfo.items.push(new Item(item))
+  addItemToShipment(item): void {
+    this.shipment.items.push(new Item(item))
   }
 
-  clearDelivery():void{
-    this.deliveryInfo.recipient = ""
-    this.deliveryInfo.items = []
+  clearShipment(): void {
+    this.shipment.recipient = ""
+    this.shipment.items = []
   }
 
-  removeItem(itemIndex):void{
-    this.deliveryInfo.items.splice(itemIndex, 1)
+  removeItemFromShipment(itemIndex): void {
+    this.shipment.items.splice(itemIndex, 1)
   }
 
   openItemDetail(item: Item) {
@@ -56,26 +57,31 @@ export class SendPage {
     let alert = this.alertCtrl.create({
       title: 'Are you sure?',
       message: 'Do you want to request this delivery?',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => { }
-        },
-        {
-          text: 'Yes',
-          handler: () => {            
-            this.deliverySend.requestDelivery(this.deliveryInfo).subscribe(
-              resp => { }, err => { })
-
-            this.deliveryInfo = {
-              recipient: "",
-              items: []
-            }
-          }
-        }
-      ]
+      buttons: this.confirmSendDialogButtons
     })
     alert.present()
   }
+
+  initShipment() {
+    this.deliverySend.initShipment(this.shipment).subscribe(
+      resp => { }, err => { }
+    )
+
+    this.shipment = {
+      recipient: "",
+      items: []
+    }
+  }
+
+  private confirmSendDialogButtons = [{
+    text: 'No',
+    role: 'cancel',
+    handler: () => { }
+  },
+  {
+    text: 'Yes',
+    handler: () => {
+      this.initShipment()
+    }
+  }]
 }

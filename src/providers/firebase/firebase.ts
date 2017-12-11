@@ -10,7 +10,7 @@ export class FirebaseProvider {
   private messaging: firebase.messaging.Messaging
   constructor(public plt: Platform, private fcm: FCM, private api: Api) { }
 
-  init() {
+  initFCM() {
     this.messaging = firebase.messaging()
     let self = this
 

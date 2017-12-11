@@ -10,10 +10,10 @@ import { LoginPage } from '../login/login'
 export class WelcomePage {
   constructor(public navCtrl: NavController) { }
 
-  login() { 
+  navToLoginPage() { 
     this.navCtrl.push(LoginPage)
   }
-  signup() {
+  navToSignupPage() {
     this.navCtrl.push(SignupPage) 
   }
 }

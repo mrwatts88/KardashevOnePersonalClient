@@ -28,12 +28,12 @@
       </ion-avatar>
       <h2>{{item.name}}</h2>
       <p>{{item.message}}</p>
-      <ion-icon class="hover-pointer" item-end name="close" (click)="removeItem(i)"></ion-icon>
+      <ion-icon class="hover-pointer" item-end name="close" (click)="removeItemFromShipment(i)"></ion-icon>
     </ion-item>
   </ion-list>
   <ion-row *ngIf="deliveryInfo.items.length > 0">
     <ion-col col-6>
-      <button ion-button color="primary" (click)="clearDelivery()" class="btn-row">Cancel</button>
+      <button ion-button color="primary" (click)="clearShipment()" class="btn-row">Cancel</button>
     </ion-col>
     <ion-col col-6>
       <button ion-button color="primary" (click)="showConfirmSendDialog()" class="btn-row">Send</button>

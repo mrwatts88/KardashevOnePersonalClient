@@ -26,7 +26,7 @@ export class LoginPage {
   }
 
   // Attempt to login in through User service
-  doLogin() {
+  login() {
     this.user.login(this.account)
     .then(user => this.navCtrl.push(TabsPage))
     .catch(err => {

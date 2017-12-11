@@ -5,7 +5,7 @@ import { Api } from '../api/api'
 export class DeliverySend {
   constructor(public api: Api) { }
   
-  requestDelivery(deliveryObject) {
-    return this.api.post('send', deliveryObject)
+  initShipment(deliveryObject) {
+    return this.api.post('initshipment', deliveryObject)
   }
 }

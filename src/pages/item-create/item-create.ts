@@ -46,11 +46,10 @@ export class ItemCreatePage {
   processWebImage(event) {
     let reader = new FileReader()
 
-    reader.onload = (readerEvent) => {
+    reader.onload = readerEvent => {
       let imageData = (readerEvent.target as any).result
       this.form.patchValue({ 'profilePic': imageData })
     }
-
     reader.readAsDataURL(event.target.files[0])
   }
 

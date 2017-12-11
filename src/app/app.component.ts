@@ -1,5 +1,4 @@
 // Contains only a slide in menu and sets the nav root so the app knows what page to start on
-
 import { Component, ViewChild } from '@angular/core'
 import { SplashScreen } from '@ionic-native/splash-screen'
 import { StatusBar } from '@ionic-native/status-bar'
@@ -55,18 +54,18 @@ export class MyApp {
       this.splashScreen.hide()
     })
     this.initTranslate()
-    this.firebase.init()
+    this.firebase.initFCM()
   }
 
   initTranslate() {
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang('en')
 
-    if (this.translate.getBrowserLang() !== undefined) {
+    if (this.translate.getBrowserLang() !== undefined)
       this.translate.use(this.translate.getBrowserLang())
-    } else {
+    else
       this.translate.use('en') // Set your language here
-    }
+
 
     this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
       this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT)

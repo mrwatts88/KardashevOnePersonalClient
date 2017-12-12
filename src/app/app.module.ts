@@ -9,7 +9,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular'
 import { Settings } from '../providers/settings/settings'
-import { User } from '../providers/user/user'
+import { UserProvider } from '../providers/user/user'
 import { Api } from '../providers/api/api'
 import { MyApp } from './app.component'
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
@@ -104,7 +104,7 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
-    User,
+    UserProvider,
     DeliverySend,
     DeliveryReceive,
     Camera,

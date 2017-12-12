@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NavController, ToastController } from 'ionic-angular'
-import { User } from '../../providers/user/user'
+import { UserProvider } from '../../providers/user/user'
 import { TabsPage } from '../tabs/tabs'
-import * as firebase from 'firebase'
+import { FirebaseProvider } from '../../providers/firebase/firebase'
 
 @Component({
   selector: 'page-login',
@@ -19,7 +19,7 @@ export class LoginPage {
   private loginErrorString: string
 
   constructor(public navCtrl: NavController,
-    public user: User,
+    public user: UserProvider,
     public toastCtrl: ToastController,
     public translateService: TranslateService) {
     this.translateService.get('LOGIN_ERROR').subscribe(value => this.loginErrorString = value)
@@ -28,7 +28,9 @@ export class LoginPage {
   // Attempt to login in through User service
   login() {
     this.user.login(this.account)
-    .then(user => this.navCtrl.push(TabsPage))
+    .then(user => {
+      this.navCtrl.push(TabsPage)
+    })
     .catch(err => {
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NavController, ToastController } from 'ionic-angular'
-import { User } from '../../providers/user/user'
+import { UserProvider } from '../../providers/user/user'
 import { TabsPage } from '../tabs/tabs'
 
 @Component({
@@ -21,7 +21,7 @@ export class SignupPage {
   private signupErrorString: string
 
   constructor(public navCtrl: NavController,
-    public user: User,
+    public user: UserProvider,
     public toastCtrl: ToastController,
     public translateService: TranslateService) {
     this.translateService.get('SIGNUP_ERROR').subscribe(value => this.signupErrorString = value)
@@ -29,7 +29,9 @@ export class SignupPage {
 
   signup() {
     this.user.signup(this.account)
-      .then(user => this.navCtrl.push(TabsPage))
+      .then(user => {
+        this.navCtrl.push(TabsPage)
+      })
       .catch(err => {
         let toast = this.toastCtrl.create({
           message: err,

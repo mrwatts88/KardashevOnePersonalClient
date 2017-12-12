@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core'
 import { Config, Nav, Platform } from 'ionic-angular'
 import { Settings } from '../providers/settings/settings'
 import { WelcomePage } from '../pages/welcome/welcome'
-import { FirebaseProvider } from '../providers/firebase/firebase'
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -46,14 +45,13 @@ export class MyApp {
     { title: 'Search', component: 'SearchPage' }
   ]
 
-  constructor(private firebase: FirebaseProvider, private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
     // TODO: Learn about when to use this
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault()
       this.splashScreen.hide()
-      this.firebase.initFCM()
     })
     this.initTranslate()
   }

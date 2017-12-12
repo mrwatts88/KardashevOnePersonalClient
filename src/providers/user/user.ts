@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core'
 import { Api } from '../api/api'
 import * as firebase from 'firebase'
+import { FirebaseError } from 'firebase'
+import { FirebaseProvider } from '../../providers/firebase/firebase'
+import { User } from '../../models/user'
 
 @Injectable()
-export class User {
-  constructor(public api: Api) {
+export class UserProvider {
+  constructor(public firebaseProvider:FirebaseProvider, public api: Api) {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        // User is signed in.
-        let displayName = user.displayName
-        let email = user.email
-        let emailVerified = user.emailVerified
-        let photoURL = user.photoURL
-        let isAnonymous = user.isAnonymous
-        let uid = user.uid
-        let providerData = user.providerData
+        
+        let _user = new User(user)
+        console.log('tht')
+        this.firebaseProvider.initFCM(_user)         
       } else
         this.logout()
     })

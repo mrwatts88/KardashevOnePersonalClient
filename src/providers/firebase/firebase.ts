@@ -1,18 +1,25 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Api } from '../api/api'
-import * as firebase from 'firebase'
 import { FCM } from '@ionic-native/fcm'
 import { Platform } from 'ionic-angular'
+import * as firebase from 'firebase'
+import 'firebase/firestore'
+
 
 @Injectable()
 export class FirebaseProvider {
   private messaging: firebase.messaging.Messaging
-  constructor(public plt: Platform, private fcm: FCM, private api: Api) { }
+  private db
+
+  constructor(
+    public plt: Platform,
+    private fcm: FCM,
+    private api: Api) { }
 
   initFCM(user) {
-
     this.messaging = firebase.messaging()
+    this.db = firebase.firestore()
     let self = this
 
     // Handle incoming messages. Called when:
@@ -38,6 +45,7 @@ export class FirebaseProvider {
       this.fcm.getToken()
         .then(currentToken => {
           if (currentToken) {
+            // TODO: Handle multiple tokens for the same user
             user.fcmToken = currentToken
             sendUserToServer(user)
           }
@@ -70,9 +78,16 @@ export class FirebaseProvider {
     // Send the Instance ID token to the application server, so that it can:
     // - send messages back to this app
     // - subscribe/unsubscribe the token from topics
-    function sendUserToServer(user) {
-      console.log(JSON.stringify(user, null, 4))
-      self.api.post('login', { 'data': user }).subscribe(res => { })
+    function sendUserToServer(userData) {
+      self.db.collection("UserData").doc(userData.uid).set(userData)
+        .then(() => console.log("Document written with ID: ", userData.uid))
+        .catch(function (error) {
+          console.error("Error adding document: ", error)
+        })
+      
+      // TODO: See if this boolean still makes sense
+      // I think we should check if there is a token to add to the user,
+      // and if there is, send userData to the db, otherwise don't
       if (!isTokenSentToServer()) {
         setTokenSentToServer(true)
       }

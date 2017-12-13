@@ -32,9 +32,10 @@ import * as firebase from 'firebase'
 const firebaseConfig = {
   apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
   authDomain: "kardashevonefirebase.firebaseapp.com",
-  //databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-  //storageBucket: "<BUCKET>.appspot.com",
-  messagingSenderId: "471510457689",
+  databaseURL: "https://kardashevonefirebase.firebaseio.com",
+  projectId: "kardashevonefirebase",
+  storageBucket: "kardashevonefirebase.appspot.com",
+  messagingSenderId: "471510457689"
 }
 
 firebase.initializeApp(firebaseConfig)
@@ -84,7 +85,7 @@ export function provideSettings(storage: Storage) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    }),   
+    }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],

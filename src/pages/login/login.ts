@@ -28,16 +28,16 @@ export class LoginPage {
   // Attempt to login in through User service
   login() {
     this.user.login(this.account)
-    .then(user => {
-      this.navCtrl.push(TabsPage)
-    })
-    .catch(err => {
-      let toast = this.toastCtrl.create({
-        message: this.loginErrorString,
-        duration: 3000,
-        position: 'bottom'
+      .then(user => {
+        this.navCtrl.push(TabsPage)
       })
-      toast.present()
-    })
+      .catch(err => {
+        let toast = this.toastCtrl.create({
+          message: this.loginErrorString,
+          duration: 3000,
+          position: 'bottom'
+        })
+        toast.present()
+      })
   }
 }

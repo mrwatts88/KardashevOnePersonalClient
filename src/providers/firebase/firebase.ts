@@ -72,7 +72,7 @@ export class FirebaseProvider {
     // - subscribe/unsubscribe the token from topics
     function sendUserToServer(user) {
       console.log(JSON.stringify(user, null, 4))
-      self.api.post('fcmtoken', { 'data': user }).subscribe(res => { })
+      self.api.post('login', { 'data': user }).subscribe(res => { })
       if (!isTokenSentToServer()) {
         setTokenSentToServer(true)
       }

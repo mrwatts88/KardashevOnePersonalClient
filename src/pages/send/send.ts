@@ -6,6 +6,8 @@ import { DeliverySend } from '../../providers/delivery-send/delivery-send'
 import { Item } from '../../models/item'
 import { ItemCreatePage } from '../item-create/item-create'
 import { ItemDetailPage } from '../item-detail/item-detail'
+import { UserProvider } from '../../providers/user/user'
+import { WelcomePage } from '../welcome/welcome'
 
 @Component({
   selector: 'page-send',
@@ -33,7 +35,9 @@ export class SendPage {
     ]
   }
 
-  constructor(public alertCtrl: AlertController, public modalCtrl: ModalController, public deliverySend: DeliverySend, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation) {
+  constructor(public alertCtrl: AlertController, public modalCtrl: ModalController, public deliverySend: DeliverySend,
+     public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation,
+     public userProvider: UserProvider) {
     this.resetShipment()
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
@@ -42,12 +46,19 @@ export class SendPage {
   ionViewDidLoad() { }
 
   showAddItemPage(): void {
-    let addModal = this.modalCtrl.create(ItemCreatePage)
-    addModal.onDidDismiss(item => {
-      if (item)
-        this.addItemToShipment(item)
+    this.userProvider.logout().then( () => {
+      this.navCtrl.push(WelcomePage)
+      this.navCtrl.setRoot(WelcomePage)
+    }).catch( () => {
+      console.log("Could not log out")
     })
-    addModal.present()
+    // let addModal = this.modalCtrl.create(ItemCreatePage)
+    // addModal.onDidDismiss(item => {
+    //   if (item)
+    //     this.addItemToShipment(item)
+    // })
+    // addModal.present()
+
   }
 
   addItemToShipment(item): void {

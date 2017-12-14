@@ -5,6 +5,7 @@ import { UserProvider } from '../../providers/user/user'
 import { TabsPage } from '../tabs/tabs'
 import { FirebaseError } from 'firebase'
 import { FirebaseProvider } from '../../providers/firebase/firebase'
+import { FirestoreProvider } from '../../providers/firestore/firestore'
 
 @Component({
   selector: 'page-signup',
@@ -27,11 +28,13 @@ export class SignupPage {
     public user: UserProvider,
     public toastCtrl: ToastController,
     public translateService: TranslateService,
-    public firebaseProvider: FirebaseProvider) {
+    public firebaseProvider: FirebaseProvider,
+    public firestoreProvider: FirestoreProvider) {
     this.translateService.get('SIGNUP_ERROR').subscribe(value => this.signupErrorString = value)
   }
 
   signup() {
+    console.log("Signing up user")
     this.user.signup(this.account)
       .then(user => {
         let _user = {
@@ -45,6 +48,7 @@ export class SignupPage {
 
         this.firebaseProvider.getInitialFCMToken(user).then( FCMToken => {
           _user.fcmToken = FCMToken
+          this.firestoreProvider.createUser(_user)
           this.navCtrl.push(TabsPage)
         }).catch( err => console.log(err))        
       }).catch(err => {

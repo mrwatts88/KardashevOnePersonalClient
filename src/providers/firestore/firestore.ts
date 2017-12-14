@@ -19,9 +19,15 @@ export class FirestoreProvider {
     })
   }
 
+  updateFCMToken(uid: string, fcmToken: string){
+    return this.db.collection("UserData").doc(uid).update({
+      fcmToken: fcmToken
+    })
+  }
+
   setPhoneNumber(pn: string, uid: string) {
     console.log(this.db)
-    let a = this.db.collection("UserData").doc(uid).update({
+    return this.db.collection("UserData").doc(uid).update({
       phoneNumber: pn
     })
   }

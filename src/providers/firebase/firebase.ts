@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core'
 import { Api } from '../api/api'
 import { FCM } from '@ionic-native/fcm'
 import { Platform } from 'ionic-angular'
+import { UserProvider } from '../user/user'
 import * as firebase from 'firebase'
+
 
 
 
@@ -14,12 +16,14 @@ export class FirebaseProvider {
   constructor(
     public plt: Platform,
     private fcm: FCM,
-    private api: Api) { }
+    private api: Api,
+    private userProvider: UserProvider
+    
+  ) { }
 
   initFCM() {
     this.messaging = firebase.messaging()
-
-    let self = this
+    console.log(this.messaging)
 
     // Handle incoming messages. Called when:
     // - a message is received while the app has focus
@@ -30,8 +34,7 @@ export class FirebaseProvider {
     // Callback fired if Instance ID token is updated.
     this.messaging.onTokenRefresh(() => {
       this.messaging.getToken()
-        .then(refreshedToken => {
-        })
+        .then(refreshedToken => this.userProvider.updateFCMToken(refreshedToken))
         .catch(err => console.log('Unable to retrieve refreshed token ', err))
     })
   }

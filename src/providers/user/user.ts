@@ -22,11 +22,16 @@ export class UserProvider {
   }
 
   logout() {
-    //TODO: Show login page 
+    //TODO: Show login page
+    return firebase.auth().signOut()
   }
 
   setPhoneNumber(phoneNumber: string){
     console.log(firebase.auth().currentUser.uid + ', ' + phoneNumber)
     return this.firestoreProvider.setPhoneNumber(phoneNumber, firebase.auth().currentUser.uid)
+  }
+
+  updateFCMToken(fcmToken: string){
+    return this.firestoreProvider.updateFCMToken(firebase.auth().currentUser.uid, fcmToken)
   }
 }

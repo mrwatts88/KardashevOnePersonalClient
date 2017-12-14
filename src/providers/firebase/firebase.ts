@@ -4,13 +4,12 @@ import { Api } from '../api/api'
 import { FCM } from '@ionic-native/fcm'
 import { Platform } from 'ionic-angular'
 import * as firebase from 'firebase'
-import 'firebase/firestore'
+
 
 
 @Injectable()
 export class FirebaseProvider {
   private messaging: firebase.messaging.Messaging
-  private db
 
   constructor(
     public plt: Platform,
@@ -19,7 +18,7 @@ export class FirebaseProvider {
 
   initFCM() {
     this.messaging = firebase.messaging()
-    this.db = firebase.firestore()
+
     let self = this
 
     // Handle incoming messages. Called when:
@@ -35,8 +34,6 @@ export class FirebaseProvider {
         })
         .catch(err => console.log('Unable to retrieve refreshed token ', err))
     })
-
-
   }
 
   getInitialFCMToken(user) {
@@ -56,12 +53,4 @@ export class FirebaseProvider {
       }
     })
   }
-
-  setPhoneNumber(pn: string, uid: string) {
-    console.log(this.db)
-    let a = this.db.collection("UserData").doc(uid).update({
-      phoneNumber: pn
-    })
-  }
-
 }

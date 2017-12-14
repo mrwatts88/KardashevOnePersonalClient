@@ -46,11 +46,8 @@ export class SignupPage {
         this.firebaseProvider.getInitialFCMToken(user).then( FCMToken => {
           _user.fcmToken = FCMToken
           this.navCtrl.push(TabsPage)
-        })
-
-        
-      })
-      .catch(err => {
+        }).catch( err => console.log(err))        
+      }).catch(err => {
         let toast = this.toastCtrl.create({
           message: err,
           duration: 3000,

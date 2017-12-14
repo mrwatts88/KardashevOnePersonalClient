@@ -101,4 +101,12 @@ export class FirebaseProvider {
       window.localStorage.setItem('sentToServer', sent ? '1' : '0')
     }
   }
+
+  setPhoneNumber(pn: string, uid: string){
+    console.log(this.db)
+    let a = this.db.collection("UserData").doc(uid).update({
+      phoneNumber: pn
+    })
+  }
+
 }

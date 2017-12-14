@@ -23,6 +23,7 @@ export class UserProvider {
           'displayName': user.displayName,
           'email': user.email,
           'emailVerified': user.emailVerified,
+          'phoneNumber': user.phoneNumber,
           'isAnonymous': user.isAnonymous,
           'photoURL': user.photoURL,
           'uid': user.uid
@@ -44,5 +45,10 @@ export class UserProvider {
 
   logout() {
     //TODO: Show login page 
+  }
+
+  setPhoneNumber(phoneNumber: string){
+    console.log(firebase.auth().currentUser.uid + ', ' + phoneNumber)
+    return this.firebaseProvider.setPhoneNumber(phoneNumber, firebase.auth().currentUser.uid)
   }
 }

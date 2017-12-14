@@ -10,9 +10,10 @@ import { TabsPage } from '../tabs/tabs'
 })
 export class SignupPage {
   // The account fields for the login form.
-  account: { name: string, email: string, username: string, password: string } = {
+  account: { name: string, email: string, phoneNumber: string, username: string, password: string } = {
     name: 'Matt Watts',
     email: 'mrwatts@uwm.edu',
+    phoneNumber: '+14145249627',
     username: 'mrwatts',
     password: 'password'
   }
@@ -31,6 +32,7 @@ export class SignupPage {
     this.user.signup(this.account)
       .then(user => {
         this.navCtrl.push(TabsPage)
+        //this.user.setPhoneNumber(this.account.phoneNumber)
       })
       .catch(err => {
         let toast = this.toastCtrl.create({

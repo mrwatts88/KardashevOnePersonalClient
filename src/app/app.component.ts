@@ -7,8 +7,9 @@ import { Config, Nav, Platform } from 'ionic-angular'
 import { Settings } from '../providers/settings/settings'
 import { WelcomePage } from '../pages/welcome/welcome'
 import * as firebase from 'firebase'
-import { TabsPage } from '../pages/tabs/tabs';
-import { HistoryPage } from '../pages/history/history';
+import { TabsPage } from '../pages/tabs/tabs'
+import { HistoryPage } from '../pages/history/history'
+import { FirebaseProvider } from '../providers/firebase/firebase'
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -48,11 +49,13 @@ export class MyApp {
     { title: 'Search', component: 'SearchPage' }
   ]
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, 
+    private statusBar: StatusBar, private splashScreen: SplashScreen, private firebaseProvider: FirebaseProvider) {
     
 
     // TODO: Learn about when to use this
     platform.ready().then(() => {
+      firebaseProvider.initFCM()
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault()

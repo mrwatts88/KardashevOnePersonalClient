@@ -6,6 +6,9 @@ import { TranslateService } from '@ngx-translate/core'
 import { Config, Nav, Platform } from 'ionic-angular'
 import { Settings } from '../providers/settings/settings'
 import { WelcomePage } from '../pages/welcome/welcome'
+import * as firebase from 'firebase'
+import { TabsPage } from '../pages/tabs/tabs';
+import { HistoryPage } from '../pages/history/history';
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -27,7 +30,7 @@ import { WelcomePage } from '../pages/welcome/welcome'
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = WelcomePage
+  rootPage = HistoryPage
 
   @ViewChild(Nav) nav: Nav
 
@@ -46,12 +49,28 @@ export class MyApp {
   ]
 
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+    
+
     // TODO: Learn about when to use this
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault()
       this.splashScreen.hide()
+      // TODO: Decide when to call this, and whether to persist authentication
+      // the auth state is changed immediately after this listener is defined
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          // TODO: Firestore is not allowing a custom object to be passed into firestore.add(), see what we can do
+          // let _user = new User(user)
+          // this.firebaseProvider.initFCM(_user)
+          this.nav.setRoot(TabsPage)
+          this.nav.push(TabsPage)
+        } else {
+          this.nav.setRoot(WelcomePage)
+          this.nav.push(WelcomePage)
+        }
+      })
     })
     this.initTranslate()
   }

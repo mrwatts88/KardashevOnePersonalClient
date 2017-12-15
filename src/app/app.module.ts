@@ -23,7 +23,6 @@ import { WelcomePage } from '../pages/welcome/welcome'
 import { TabsPage } from '../pages/tabs/tabs'
 import { LoginPage } from '../pages/login/login'
 import { SignupPage } from '../pages/signup/signup'
-import { MenuPage } from '../pages/menu/menu'
 import { ItemDetailPage } from '../pages/item-detail/item-detail'
 import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive'
 import { FirebaseProvider } from '../providers/firebase/firebase'
@@ -77,8 +76,7 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     LoginPage,
     SignupPage,
-    ItemDetailPage,
-    MenuPage
+    ItemDetailPage
   ],
   imports: [
     BrowserModule,
@@ -105,8 +103,7 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     LoginPage,
     SignupPage,
-    ItemDetailPage,
-    MenuPage
+    ItemDetailPage
   ],
   providers: [
     Api,

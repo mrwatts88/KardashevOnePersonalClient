@@ -6,7 +6,6 @@ import { FirestoreProvider } from '../../providers/firestore/firestore'
 import { User } from '../../models/user'
 import * as firebase from 'firebase'
 
-
 @Injectable()
 export class UserProvider {
   constructor(

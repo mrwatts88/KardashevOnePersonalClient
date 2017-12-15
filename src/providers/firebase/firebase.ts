@@ -14,12 +14,12 @@ export class FirebaseProvider {
     public plt: Platform,
     private fcm: FCM,
     private api: Api,
-    public firestoreProvider: FirestoreProvider
-  ) {
+    public firestoreProvider: FirestoreProvider) {
     this.messaging = firebase.messaging()
     this.messaging.onMessage(payload => console.log(payload))
     this.messaging.onTokenRefresh(() =>
-      this.messaging.getToken().then(token => this.firestoreProvider.updateFcmToken(firebase.auth().currentUser.uid, token))
+      this.messaging.getToken()
+        .then(token => this.firestoreProvider.updateFcmToken(firebase.auth().currentUser.uid, token))
         .catch(err => console.error(err))
     )
   }

@@ -19,12 +19,11 @@ export class UserProvider {
 
   login(accountInfo: any) {
     return firebase.auth().signInWithEmailAndPassword(accountInfo.email, accountInfo.password).then(
-      () => {
-        this.firebaseProvider.getFcmToken()
-          .then(token => this.updateFcmToken(token))
-          .catch(err => console.log(err))
-      }
-    ).catch((err) => { console.log(err) })
+      () => this.firebaseProvider.getFcmToken())
+      .then(token => this.firestoreProvider.updateFcmToken(firebase.auth().currentUser.uid, <string>token))
+      .catch(err => {
+        throw err        
+      })
   }
 
   logout() {

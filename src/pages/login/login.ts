@@ -26,10 +26,7 @@ export class LoginPage {
   }
 
   login() {
-    this.user.login(this.account)
-      .then(user => {
-        this.navCtrl.push(TabsPage)
-      }).catch(err => {
+    this.user.login(this.account).catch(err => {
         let toast = this.toastCtrl.create({
           message: this.loginErrorString,
           duration: 3000,

@@ -46,18 +46,12 @@ export class SendPage {
   ionViewDidLoad() { }
 
   showAddItemPage(): void {
-    this.userProvider.logout().then( () => {
-      this.navCtrl.push(WelcomePage)
-      this.navCtrl.setRoot(WelcomePage)
-    }).catch( () => {
-      console.log("Could not log out")
+    let addModal = this.modalCtrl.create(ItemCreatePage)
+    addModal.onDidDismiss(item => {
+      if (item)
+        this.addItemToShipment(item)
     })
-    // let addModal = this.modalCtrl.create(ItemCreatePage)
-    // addModal.onDidDismiss(item => {
-    //   if (item)
-    //     this.addItemToShipment(item)
-    // })
-    // addModal.present()
+    addModal.present()
 
   }
 

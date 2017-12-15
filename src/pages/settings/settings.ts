@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 import { TranslateService } from '@ngx-translate/core'
 import { NavController, NavParams } from 'ionic-angular'
 import { Settings } from '../../providers/settings/settings'
+import { UserProvider } from '../../providers/user/user'
 
 //  The Settings page is a simple form that syncs with a Settings provider
 //  to enable the user to customize settings for the app.
@@ -29,7 +30,8 @@ export class SettingsPage {
     public settings: Settings,
     public formBuilder: FormBuilder,
     public navParams: NavParams,
-    public translate: TranslateService) {
+    public translate: TranslateService,
+    public userProvider:UserProvider) {
   }
 
   _buildForm() {
@@ -74,4 +76,11 @@ export class SettingsPage {
   }
 
   ngOnChanges() { }
+
+  logout(){
+    this.userProvider.logout().then( () => {
+    }).catch( () => {
+      console.log("Could not log out")
+    })
+  }
 }

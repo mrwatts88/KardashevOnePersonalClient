@@ -68,10 +68,10 @@ export class MyApp {
           // let _user = new User(user)
           // this.firebaseProvider.initFCM(_user)
           this.nav.setRoot(TabsPage)
-          this.nav.push(TabsPage)
+          // this.nav.push(TabsPage)
         } else {
           this.nav.setRoot(WelcomePage)
-          this.nav.push(WelcomePage)
+          // this.nav.push(WelcomePage)
         }
       })
     })

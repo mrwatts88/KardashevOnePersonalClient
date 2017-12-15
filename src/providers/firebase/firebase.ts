@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Api } from '../api/api'
 import { FCM } from '@ionic-native/fcm'
 import { Platform } from 'ionic-angular'
-import { UserProvider } from '../user/user'
+import { FirestoreProvider } from '../../providers/firestore/firestore'
 import * as firebase from 'firebase'
 
 @Injectable()
@@ -14,19 +14,17 @@ export class FirebaseProvider {
     public plt: Platform,
     private fcm: FCM,
     private api: Api,
-    public userProvider: UserProvider
-  ) { }
-
-  initFCM() {
+    public firestoreProvider: FirestoreProvider
+  ) {
     this.messaging = firebase.messaging()
-    this.messaging.onMessage(payload => console.log("Message received.", payload))
-
-    this.messaging.onTokenRefresh(() => {
-      this.messaging.getToken().then(refreshedToken => this.userProvider.updateFCMToken(refreshedToken)).catch(err => console.log(err))
-    })
+    this.messaging.onMessage(payload => console.log(payload))
+    this.messaging.onTokenRefresh(() =>
+      this.messaging.getToken().then(token => this.firestoreProvider.updateFcmToken(firebase.auth().currentUser.uid, token))
+        .catch(err => console.error(err))
+    )
   }
 
-  getInitialFCMToken() {
+  getFcmToken() {
     return new Promise((res, rej) => {
       if (this.plt.is('mobile')) {
         this.fcm.getToken().then(currentToken => {
@@ -39,7 +37,7 @@ export class FirebaseProvider {
             if (currentToken)
               res(currentToken)
           }).catch(err => rej(err))
-        }).catch(err => rej(err))
+        })
       }
     })
   }

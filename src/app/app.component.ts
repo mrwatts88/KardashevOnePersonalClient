@@ -51,11 +51,10 @@ export class MyApp {
     private userProvider: UserProvider) {
 
     this.initTranslate()
-    this.firebaseProvider.initFCM()
+    firebase.auth().onAuthStateChanged(user => this.nav.setRoot(user ? TabsPage : WelcomePage))
 
     platform.ready().then(() => {
       // plugins are available
-      firebase.auth().onAuthStateChanged(user => this.nav.setRoot(user ? TabsPage : WelcomePage))
       if (platform.is('mobile')) {
         this.statusBar.styleDefault()
         this.splashScreen.hide()

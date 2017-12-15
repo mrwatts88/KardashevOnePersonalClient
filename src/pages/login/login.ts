@@ -17,10 +17,11 @@ export class LoginPage {
 
   private loginErrorString: string
 
-  constructor(public navCtrl: NavController,
-    public user: UserProvider,
-    public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+  constructor(
+    private navCtrl: NavController,
+    private user: UserProvider,
+    private toastCtrl: ToastController,
+    private translateService: TranslateService) {
     this.translateService.get('LOGIN_ERROR').subscribe(value => this.loginErrorString = value)
   }
 
@@ -28,8 +29,7 @@ export class LoginPage {
     this.user.login(this.account)
       .then(user => {
         this.navCtrl.push(TabsPage)
-      })
-      .catch(err => {
+      }).catch(err => {
         let toast = this.toastCtrl.create({
           message: this.loginErrorString,
           duration: 3000,

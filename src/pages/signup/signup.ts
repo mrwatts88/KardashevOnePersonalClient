@@ -22,33 +22,49 @@ export class SignupPage {
 
   private signupErrorString: string
 
-  constructor(public navCtrl: NavController,
-    public user: UserProvider,
-    public toastCtrl: ToastController,
-    public translateService: TranslateService,
-    public firebaseProvider: FirebaseProvider,
-    public firestoreProvider: FirestoreProvider) {
+  constructor(
+    private navCtrl: NavController,
+    private user: UserProvider,
+    private toastCtrl: ToastController,
+    private translateService: TranslateService,
+    private firebaseProvider: FirebaseProvider,
+    private firestoreProvider: FirestoreProvider) {
     this.translateService.get('SIGNUP_ERROR').subscribe(value => this.signupErrorString = value)
   }
 
-  signup() {
-    this.user.signup(this.account).then(user => {
-      let _user = {
-        uid: user.uid,
-        displayName: this.account.name,
-        username: this.account.username,
-        email: user.email,
-        phoneNumber: this.account.phoneNumber,
-        fcmToken: undefined
-      }
-
-      this.firebaseProvider.getInitialFCMToken().then(FCMToken => {
-        _user.fcmToken = FCMToken
-        this.firestoreProvider.createUser(_user)
-      }).catch(err => console.log(err))
-    }).catch(err => {
+  signupAndGetFcmTokenAndInsertUserInFirestore() {
+    this.user.signup(this.account).then(user => this.getFcmTokenAndInsertUserInFirestore(user)).catch((err) => {
       let toast = this.toastCtrl.create({
         message: err,
+        duration: 3000,
+        position: 'bottom'
+      })
+      toast.present()
+    })
+  }
+
+  private getFcmTokenAndInsertUserInFirestore(user) {
+    let _user = {
+      uid: user.uid,
+      displayName: this.account.name,
+      username: this.account.username,
+      email: user.email,
+      phoneNumber: this.account.phoneNumber,
+      fcmToken: undefined
+    }
+
+    this.firebaseProvider.getFcmToken().then(token => {
+      _user.fcmToken = token
+      this.insertUserInFirestore(_user)
+    }).catch(err => {
+      console.error('Could not get a token')
+    })
+  }
+
+  private insertUserInFirestore(user) {
+    this.firestoreProvider.insertUser(user).catch(err => {
+      let toast = this.toastCtrl.create({
+        message: err + "2",
         duration: 3000,
         position: 'bottom'
       })

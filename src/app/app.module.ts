@@ -28,7 +28,7 @@ import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive'
 import { FirebaseProvider } from '../providers/firebase/firebase'
 import { FCM } from '@ionic-native/fcm'
 import * as firebase from 'firebase'
-import { FirestoreProvider } from '../providers/firestore/firestore';
+import { FirestoreProvider } from '../providers/firestore/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
@@ -118,7 +118,8 @@ export function provideSettings(storage: Storage) {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     FirebaseProvider,
     FCM,
-    FirestoreProvider
+    FirestoreProvider,
+    UserProvider
   ]
 })
 export class AppModule { }

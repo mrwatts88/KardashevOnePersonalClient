@@ -3,8 +3,8 @@ import { Api } from '../api/api'
 import * as firebase from 'firebase'
 import { FirebaseError } from 'firebase'
 import { FirestoreProvider } from '../../providers/firestore/firestore'
-
 import { User } from '../../models/user'
+
 
 @Injectable()
 export class UserProvider {
@@ -18,7 +18,14 @@ export class UserProvider {
   }
 
   login(accountInfo: any) {
-    return firebase.auth().signInWithEmailAndPassword(accountInfo.email, accountInfo.password)
+    return firebase.auth().signInWithEmailAndPassword(accountInfo.email, accountInfo.password).then(
+      () => {
+        firebase.messaging().getToken()
+          .then(refreshedToken => this.updateFCMToken(refreshedToken))
+          .catch(err => console.log('Unable to retrieve refreshed token ', err))
+      }
+
+    )
   }
 
   logout() {

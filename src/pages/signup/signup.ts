@@ -46,7 +46,7 @@ export class SignupPage {
           fcmToken: undefined
         }
 
-        this.firebaseProvider.getInitialFCMToken(user).then( FCMToken => {
+        this.firebaseProvider.getInitialFCMToken().then( FCMToken => {
           _user.fcmToken = FCMToken
           this.firestoreProvider.createUser(_user)
         }).catch( err => console.log(err))        

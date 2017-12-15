@@ -21,7 +21,10 @@ export class UserProvider {
     return firebase.auth().signInWithEmailAndPassword(accountInfo.email, accountInfo.password).then(
       () => {
         firebase.messaging().getToken()
-          .then(refreshedToken => this.updateFCMToken(refreshedToken))
+          .then(refreshedToken => {
+            console.log(refreshedToken)
+            this.updateFCMToken(refreshedToken)
+          })
           .catch(err => console.log('Unable to retrieve refreshed token ', err))
       }
 

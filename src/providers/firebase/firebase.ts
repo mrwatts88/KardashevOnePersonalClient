@@ -27,17 +27,17 @@ export class FirebaseProvider {
   getFcmToken() {
     return new Promise((res, rej) => {
       if (this.plt.is('mobile')) {
-        this.fcm.getToken().then(currentToken => {
-          if (currentToken)
-            res(currentToken)
+        this.fcm.getToken().then(token => {
+          if (token)
+            res(token)
         }).catch(err => rej(err))
       } else {
-        this.messaging.requestPermission().then(() => {
-          this.messaging.getToken().then(currentToken => {
-            if (currentToken)
-              res(currentToken)
+        this.messaging.requestPermission().then(
+          () => this.messaging.getToken()).then(
+          token => {
+            if (token)
+              res(token)
           }).catch(err => rej(err))
-        })
       }
     })
   }

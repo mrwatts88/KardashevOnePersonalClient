@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { Nav, NavController } from 'ionic-angular'
+import { TabsPage } from '../tabs/tabs'
 
 // Not using this page currently. It is a side drawer menu.  Will probably change to this
 // from tabs at some point.
@@ -10,9 +11,9 @@ import { Nav, NavController } from 'ionic-angular'
 })
 export class MenuPage {
   // A reference to the ion-nav in our component
-  @ViewChild(Nav) nav: Nav
+   @ViewChild(Nav) nav: Nav
 
-  rootPage: any = 'ContentPage'
+  rootPage: any = TabsPage
   pages: Array<{ title: string, component: any }>
 
   constructor(public navCtrl: NavController) {
@@ -27,6 +28,6 @@ export class MenuPage {
   openPage(page) {
     // Reset the content nav to have just this page
     // dont back button to show in this scenario
-    this.nav.setRoot(page.component)
+    //this.nav.setRoot(page.component)
   }
 }

@@ -20,7 +20,7 @@ export class TabsPage {
   tab3Title = " "
   tab4Title = " "
 
-  constructor(public navCtrl: NavController, public translateService: TranslateService) {
+  constructor(public translateService: TranslateService) {
     translateService.get(['TAB3_TITLE']).subscribe(values => {
       this.tab1Title = "Send"
       this.tab2Title = "Receive"

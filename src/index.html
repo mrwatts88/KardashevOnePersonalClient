@@ -22,9 +22,7 @@
   <!-- using firebase-messaging-sw -->
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('firebase-messaging-sw.js')
-        .then(() => console.log('service worker installed'))
-        .catch(err => console.log('Error1' + err));
+      navigator.serviceWorker.register('firebase-messaging-sw.js').then().catch(err => console.log(err));
     }
   </script>
 

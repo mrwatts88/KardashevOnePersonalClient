@@ -23,12 +23,14 @@ import { WelcomePage } from '../pages/welcome/welcome'
 import { TabsPage } from '../pages/tabs/tabs'
 import { LoginPage } from '../pages/login/login'
 import { SignupPage } from '../pages/signup/signup'
+import { MenuPage } from '../pages/menu/menu'
 import { ItemDetailPage } from '../pages/item-detail/item-detail'
 import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive'
 import { FirebaseProvider } from '../providers/firebase/firebase'
 import { FCM } from '@ionic-native/fcm'
 import * as firebase from 'firebase'
 import { FirestoreProvider } from '../providers/firestore/firestore'
+import { NavController } from 'ionic-angular/navigation/nav-controller';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
@@ -75,7 +77,8 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     LoginPage,
     SignupPage,
-    ItemDetailPage
+    ItemDetailPage,
+    MenuPage
   ],
   imports: [
     BrowserModule,
@@ -102,7 +105,8 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     LoginPage,
     SignupPage,
-    ItemDetailPage
+    ItemDetailPage,
+    MenuPage
   ],
   providers: [
     Api,

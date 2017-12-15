@@ -32,7 +32,6 @@ export class UserProvider {
   }
 
   logout() {
-    //TODO: Show login page
     return firebase.auth().signOut()
   }
 

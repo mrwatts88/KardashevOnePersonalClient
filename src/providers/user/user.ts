@@ -10,8 +10,7 @@ import * as firebase from 'firebase'
 export class UserProvider {
   constructor(
     public firestoreProvider: FirestoreProvider,
-    public api: Api) {
-  }
+    public api: Api) { }
 
   signup(accountInfo: any) {
     return firebase.auth().createUserWithEmailAndPassword(accountInfo.email, accountInfo.password)
@@ -19,15 +18,7 @@ export class UserProvider {
 
   login(accountInfo: any) {
     return firebase.auth().signInWithEmailAndPassword(accountInfo.email, accountInfo.password).then(
-      () => {
-        firebase.messaging().getToken()
-          .then(refreshedToken => {
-            console.log(refreshedToken)
-            this.updateFCMToken(refreshedToken)
-          })
-          .catch(err => console.log('Unable to retrieve refreshed token ', err))
-      }
-
+      () => firebase.messaging().getToken().then(token => this.updateFCMToken(token)).catch(err => console.log(err))
     )
   }
 

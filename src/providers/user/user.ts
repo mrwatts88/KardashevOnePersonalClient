@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Api } from '../api/api'
-import * as firebase from 'firebase'
 import { FirebaseError } from 'firebase'
 import { FirestoreProvider } from '../../providers/firestore/firestore'
 import { User } from '../../models/user'
+import * as firebase from 'firebase'
 
 
 @Injectable()
@@ -35,12 +35,7 @@ export class UserProvider {
     return firebase.auth().signOut()
   }
 
-  setPhoneNumber(phoneNumber: string){
-    console.log(firebase.auth().currentUser.uid + ', ' + phoneNumber)
-    return this.firestoreProvider.setPhoneNumber(phoneNumber, firebase.auth().currentUser.uid)
-  }
-
-  updateFCMToken(fcmToken: string){
+  updateFCMToken(fcmToken: string) {
     return this.firestoreProvider.updateFCMToken(firebase.auth().currentUser.uid, fcmToken)
   }
 }

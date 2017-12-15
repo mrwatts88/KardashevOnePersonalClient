@@ -12,7 +12,6 @@ import { FirestoreProvider } from '../../providers/firestore/firestore'
   templateUrl: 'signup.html'
 })
 export class SignupPage {
-  // The account fields for the login form.
   account: { name: string, email: string, phoneNumber: string, username: string, password: string } = {
     name: 'Matt Watts',
     email: 'mrwatts@uwm.edu',
@@ -21,7 +20,6 @@ export class SignupPage {
     password: 'password'
   }
 
-  // translated text string
   private signupErrorString: string
 
   constructor(public navCtrl: NavController,
@@ -34,29 +32,27 @@ export class SignupPage {
   }
 
   signup() {
-    console.log("Signing up user")
-    this.user.signup(this.account)
-      .then(user => {
-        let _user = {
-          uid: user.uid,
-          displayName: this.account.name,
-          username: this.account.username,
-          email: user.email,
-          phoneNumber: this.account.phoneNumber,
-          fcmToken: undefined
-        }
+    this.user.signup(this.account).then(user => {
+      let _user = {
+        uid: user.uid,
+        displayName: this.account.name,
+        username: this.account.username,
+        email: user.email,
+        phoneNumber: this.account.phoneNumber,
+        fcmToken: undefined
+      }
 
-        this.firebaseProvider.getInitialFCMToken().then( FCMToken => {
-          _user.fcmToken = FCMToken
-          this.firestoreProvider.createUser(_user)
-        }).catch( err => console.log(err))        
-      }).catch(err => {
-        let toast = this.toastCtrl.create({
-          message: err,
-          duration: 3000,
-          position: 'bottom'
-        })
-        toast.present()
+      this.firebaseProvider.getInitialFCMToken().then(FCMToken => {
+        _user.fcmToken = FCMToken
+        this.firestoreProvider.createUser(_user)
+      }).catch(err => console.log(err))
+    }).catch(err => {
+      let toast = this.toastCtrl.create({
+        message: err,
+        duration: 3000,
+        position: 'bottom'
       })
+      toast.present()
+    })
   }
 }

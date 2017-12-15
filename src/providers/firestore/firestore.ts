@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 
@@ -11,25 +10,17 @@ export class FirestoreProvider {
     this.db = firebase.firestore()
   }
 
-  createUser(userData){
-    this.db.collection("UserData").doc(userData.uid).set(userData).then( () => {
+  createUser(userData) {
+    this.db.collection("UserData").doc(userData.uid).set(userData).then(() => {
       console.log("Document written with ID: ", userData.uid)
-    }).catch( err => {
+    }).catch(err => {
       console.log("Error creating user in database ", err)
     })
   }
 
-  updateFCMToken(uid: string, fcmToken: string){
+  updateFCMToken(uid: string, fcmToken: string) {
     return this.db.collection("UserData").doc(uid).update({
       fcmToken: fcmToken
     })
   }
-
-  setPhoneNumber(pn: string, uid: string) {
-    console.log(this.db)
-    return this.db.collection("UserData").doc(uid).update({
-      phoneNumber: pn
-    })
-  }
-
 }

@@ -14,23 +14,15 @@ export class FirebaseProvider {
     public plt: Platform,
     private fcm: FCM,
     private api: Api,
-    public userProvider: UserProvider    
+    public userProvider: UserProvider
   ) { }
 
   initFCM() {
     this.messaging = firebase.messaging()
-
-    // Handle incoming messages. Called when:
-    // - a message is received while the app has focus
-    // - the user clicks on an app notification created by a sevice worker
-    //   `messaging.setBackgroundMessageHandler` handler.
     this.messaging.onMessage(payload => console.log("Message received.", payload))
 
-    // Callback fired if Instance ID token is updated.
     this.messaging.onTokenRefresh(() => {
-      this.messaging.getToken()
-        .then(refreshedToken => this.userProvider.updateFCMToken(refreshedToken))
-        .catch(err => console.log('Unable to retrieve refreshed token ', err))
+      this.messaging.getToken().then(refreshedToken => this.userProvider.updateFCMToken(refreshedToken)).catch(err => console.log(err))
     })
   }
 

@@ -3,16 +3,15 @@ import { SplashScreen } from '@ionic-native/splash-screen'
 import { StatusBar } from '@ionic-native/status-bar'
 import { TranslateService } from '@ngx-translate/core'
 import { Config, Nav, Platform } from 'ionic-angular'
+import { FirebaseProvider } from '../providers/firebase/firebase'
+import { UserProvider } from '../providers/user/user'
 import { WelcomePage } from '../pages/welcome/welcome'
 import { TabsPage } from '../pages/tabs/tabs'
 import { HistoryPage } from '../pages/history/history'
-import { FirebaseProvider } from '../providers/firebase/firebase'
-import * as firebase from 'firebase'
-import { MenuPage } from '../pages/menu/menu'
 import { SendPage } from '../pages/send/send'
 import { ReceivePage } from '../pages/receive/receive'
 import { SettingsPage } from '../pages/settings/settings'
-import { UserProvider } from '../providers/user/user'
+import * as firebase from 'firebase'
 
 @Component({
   template: `
@@ -35,7 +34,6 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav
 
-  // used for slide in menu (not currently being used)
   pages: any[] = [
     { title: 'Send', component: SendPage },
     { title: 'Receive', component: ReceivePage },
@@ -56,7 +54,7 @@ export class MyApp {
     this.firebaseProvider.initFCM()
 
     platform.ready().then(() => {
-      // our plugins are available
+      // plugins are available
       firebase.auth().onAuthStateChanged(user => this.nav.setRoot(user ? TabsPage : WelcomePage))
       if (platform.is('mobile')) {
         this.statusBar.styleDefault()

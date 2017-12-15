@@ -3,11 +3,11 @@ import { NavController, ModalController, NavParams, AlertController } from 'ioni
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
 import { Platform } from 'ionic-angular'
 import { DeliverySend } from '../../providers/delivery-send/delivery-send'
-import { Item } from '../../models/item'
+import { UserProvider } from '../../providers/user/user'
 import { ItemCreatePage } from '../item-create/item-create'
 import { ItemDetailPage } from '../item-detail/item-detail'
-import { UserProvider } from '../../providers/user/user'
 import { WelcomePage } from '../welcome/welcome'
+import { Item } from '../../models/item'
 
 @Component({
   selector: 'page-send',
@@ -15,9 +15,9 @@ import { WelcomePage } from '../welcome/welcome'
 })
 export class SendPage {
   // TODO: Create a shipment class, add sender property
-  shipmentInfo : { recipient: string, items: Item[] }
+  shipmentInfo: { recipient: string, items: Item[] }
 
-  confirmSendDialogContent : Object = {
+  confirmSendDialogContent: Object = {
     title: 'Are you sure?',
     message: 'Do you want to request this delivery?',
     buttons: [
@@ -35,15 +35,19 @@ export class SendPage {
     ]
   }
 
-  constructor(public alertCtrl: AlertController, public modalCtrl: ModalController, public deliverySend: DeliverySend,
-     public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation,
-     public userProvider: UserProvider) {
+  constructor(
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    public deliverySend: DeliverySend,
+    public plt: Platform,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private screenOrientation: ScreenOrientation,
+    public userProvider: UserProvider) {
     this.resetShipment()
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
-
-  ionViewDidLoad() { }
 
   showAddItemPage(): void {
     let addModal = this.modalCtrl.create(ItemCreatePage)
@@ -52,7 +56,6 @@ export class SendPage {
         this.addItemToShipment(item)
     })
     addModal.present()
-
   }
 
   addItemToShipment(item): void {
@@ -81,9 +84,7 @@ export class SendPage {
   }
 
   initShipment() {
-    this.deliverySend.initShipment(this.shipmentInfo).subscribe(
-      resp => { }, err => { }
-    )
+    this.deliverySend.initShipment(this.shipmentInfo).subscribe(resp => { }, err => { })
     this.resetShipment()
   }
 }

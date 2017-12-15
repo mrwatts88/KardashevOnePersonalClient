@@ -3,9 +3,9 @@ import { NavController, ModalController, NavParams, AlertController } from 'ioni
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
 import { Platform } from 'ionic-angular'
 import { DeliveryReceive } from '../../providers/delivery-receive/delivery-receive'
-import { Item } from '../../models/item'
 import { ItemCreatePage } from '../item-create/item-create'
 import { ItemDetailPage } from '../item-detail/item-detail'
+import { Item } from '../../models/item'
 
 @Component({
   selector: 'page-receive',
@@ -14,13 +14,19 @@ import { ItemDetailPage } from '../item-detail/item-detail'
 export class ReceivePage {
   pendingDeliveries: Object[] = []
 
-  constructor(public alertCtrl: AlertController, public modalCtrl: ModalController, public deliveryReceive: DeliveryReceive, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, private screenOrientation: ScreenOrientation) {
+  constructor(public alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    public deliveryReceive: DeliveryReceive,
+    public plt: Platform,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private screenOrientation: ScreenOrientation) {
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
 
   ionViewDidLoad() {
-    this.getPendingDeliveries() // This is only called the first time the receive page is visited, maybe call it more?
+    this.getPendingDeliveries() // TODO: This is only called the first time the receive page is visited, maybe call it more?
   }
 
   getPendingDeliveries() {
@@ -31,8 +37,6 @@ export class ReceivePage {
   }
 
   openItemDetail(item: Item) {
-    this.navCtrl.push(ItemDetailPage, {
-      item: item
-    })
+    this.navCtrl.push(ItemDetailPage, { item: item })
   }
 }

@@ -14,7 +14,22 @@ export class UserProvider {
     public api: Api) { }
 
   signup(accountInfo: any) {
+    let _user
     return firebase.auth().createUserWithEmailAndPassword(accountInfo.email, accountInfo.password)
+      .then(user => {
+        _user = {
+          uid: user.uid,
+          displayName: accountInfo.name,
+          username: accountInfo.username,
+          email: user.email,
+          phoneNumber: accountInfo.phoneNumber,
+          fcmToken: undefined
+        }
+        this.firebaseProvider.getFcmToken().then(token => {
+          _user.fcmToken = token
+          this.firestoreProvider.insertUser(_user)
+        }).catch(err => { throw err})
+      }).catch(err => {throw err })
   }
 
   login(accountInfo: any) {
@@ -22,7 +37,7 @@ export class UserProvider {
       () => this.firebaseProvider.getFcmToken())
       .then(token => this.firestoreProvider.updateFcmToken(firebase.auth().currentUser.uid, <string>token))
       .catch(err => {
-        throw err        
+        throw err
       })
   }
 

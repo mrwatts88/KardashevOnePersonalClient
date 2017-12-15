@@ -29,8 +29,4 @@ export class UserProvider {
   logout() {
     return firebase.auth().signOut()
   }
-
-  updateFcmToken(token) {
-    return this.firestoreProvider.updateFcmToken(firebase.auth().currentUser.uid, token)
-  }
 }

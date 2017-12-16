@@ -11,6 +11,7 @@ import { HistoryPage } from '../pages/history/history'
 import { SendPage } from '../pages/send/send'
 import { ReceivePage } from '../pages/receive/receive'
 import { SettingsPage } from '../pages/settings/settings'
+import { ObservableProvider } from '../providers/observable/observable'
 import * as firebase from 'firebase'
 
 @Component({
@@ -48,7 +49,8 @@ export class MyApp {
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
     private firebaseProvider: FirebaseProvider,
-    private userProvider: UserProvider) {
+    private userProvider: UserProvider,
+    private observableProvider: ObservableProvider) {
 
     this.initTranslate()
     firebase.auth().onAuthStateChanged(user => this.nav.setRoot(user ? TabsPage : WelcomePage))
@@ -74,7 +76,7 @@ export class MyApp {
   }
 
   openPage(page) {
-    this.nav.setRoot(page.component)
+    this.observableProvider.sendMessage(this.pages.indexOf(page))
   }
 
   logout() {

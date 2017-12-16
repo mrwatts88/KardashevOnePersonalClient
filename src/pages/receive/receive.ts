@@ -30,10 +30,10 @@ export class ReceivePage {
   }
 
   getPendingDeliveries() {
-    this.deliveryReceive.getPendingDeliveries().subscribe(deliveryObj => {
-      for (let delivery of deliveryObj['pending'])
-        this.pendingDeliveries.push(delivery)
-    })
+    // this.deliveryReceive.getPendingDeliveries().subscribe(deliveryObj => {
+    //   for (let delivery of deliveryObj['pending'])
+    //     this.pendingDeliveries.push(delivery)
+    // })
   }
 
   openItemDetail(item: Item) {

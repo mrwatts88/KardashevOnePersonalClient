@@ -29,7 +29,7 @@ import { FirebaseProvider } from '../providers/firebase/firebase'
 import { FCM } from '@ionic-native/fcm'
 import * as firebase from 'firebase'
 import { FirestoreProvider } from '../providers/firestore/firestore'
-import { NavController } from 'ionic-angular/navigation/nav-controller';
+import { ObservableProvider } from '../providers/observable/observable'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
@@ -120,7 +120,8 @@ export function provideSettings(storage: Storage) {
     FirebaseProvider,
     FCM,
     FirestoreProvider,
-    UserProvider
+    UserProvider,
+    ObservableProvider
   ]
 })
 export class AppModule { }

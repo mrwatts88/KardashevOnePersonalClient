@@ -2,8 +2,6 @@ import { Component } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NavController, ToastController } from 'ionic-angular'
 import { UserProvider } from '../../providers/user/user'
-import { TabsPage } from '../tabs/tabs'
-import { FirebaseError } from 'firebase'
 import { FcmProvider } from '../../providers/fcm/fcm'
 import { FirestoreProvider } from '../../providers/firestore/firestore'
 
@@ -27,8 +25,7 @@ export class SignupPage {
     private user: UserProvider,
     private toastCtrl: ToastController,
     private translateService: TranslateService,
-    private fcmProvider: FcmProvider,
-    private firestoreProvider: FirestoreProvider) {
+  ) {
     this.translateService.get('SIGNUP_ERROR').subscribe(value => this.signupErrorString = value)
   }
 

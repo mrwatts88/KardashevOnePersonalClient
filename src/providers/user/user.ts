@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Api } from '../api/api'
 import { FirebaseError } from 'firebase'
-import { FirebaseProvider } from '../../providers/firebase/firebase'
+import { FcmProvider } from '../../providers/fcm/fcm'
 import { FirestoreProvider } from '../../providers/firestore/firestore'
 import { User } from '../../models/user'
 import * as firebase from 'firebase'
@@ -10,7 +10,7 @@ import * as firebase from 'firebase'
 export class UserProvider {
   constructor(
     public firestoreProvider: FirestoreProvider,
-    public firebaseProvider: FirebaseProvider,
+    public fcmProvider: FcmProvider,
     public api: Api) { }
 
   signup(accountInfo: any) {
@@ -25,16 +25,16 @@ export class UserProvider {
           phoneNumber: accountInfo.phoneNumber,
           fcmToken: undefined
         }
-        this.firebaseProvider.getFcmToken().then(token => {
+        this.fcmProvider.getFcmToken().then(token => {
           _user.fcmToken = token
           this.firestoreProvider.insertUser(_user)
-        }).catch(err => { throw err})
-      }).catch(err => {throw err })
+        }).catch(err => { throw err })
+      }).catch(err => { throw err })
   }
 
   login(accountInfo: any) {
     return firebase.auth().signInWithEmailAndPassword(accountInfo.email, accountInfo.password).then(
-      () => this.firebaseProvider.getFcmToken())
+      () => this.fcmProvider.getFcmToken())
       .then(token => this.firestoreProvider.updateFcmToken(firebase.auth().currentUser.uid, <string>token))
       .catch(err => {
         throw err

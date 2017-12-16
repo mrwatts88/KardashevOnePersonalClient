@@ -25,7 +25,7 @@ import { LoginPage } from '../pages/login/login'
 import { SignupPage } from '../pages/signup/signup'
 import { ItemDetailPage } from '../pages/item-detail/item-detail'
 import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive'
-import { FirebaseProvider } from '../providers/firebase/firebase'
+import { FcmProvider } from '../providers/fcm/fcm'
 import { FCM } from '@ionic-native/fcm'
 import * as firebase from 'firebase'
 import { FirestoreProvider } from '../providers/firestore/firestore'
@@ -117,7 +117,7 @@ export function provideSettings(storage: Storage) {
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    FirebaseProvider,
+    FcmProvider,
     FCM,
     FirestoreProvider,
     UserProvider,

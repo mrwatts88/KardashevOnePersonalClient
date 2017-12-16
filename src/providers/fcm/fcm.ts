@@ -7,7 +7,7 @@ import { FirestoreProvider } from '../../providers/firestore/firestore'
 import * as firebase from 'firebase'
 
 @Injectable()
-export class FirebaseProvider {
+export class FcmProvider {
   private messaging: firebase.messaging.Messaging
 
   constructor(

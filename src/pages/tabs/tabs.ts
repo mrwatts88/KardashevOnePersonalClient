@@ -15,7 +15,6 @@ import { ObservableProvider } from '../../providers/observable/observable'
 export class TabsPage {
 
   @ViewChild(Tabs) tabRef: Tabs
-
   tab1Root: any = SendPage
   tab2Root: any = ReceivePage
   tab3Root: any = HistoryPage
@@ -30,7 +29,6 @@ export class TabsPage {
     public observableProvider: ObservableProvider) {
     this.subscription = this.observableProvider.getMessage().
       subscribe(tabIndexFromNav => {
-        console.log(tabIndexFromNav)
         this.tabRef.select(tabIndexFromNav)
       })
     translateService.get(['TAB3_TITLE']).subscribe(values => {

@@ -2,7 +2,6 @@ import { Component } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NavController, ToastController } from 'ionic-angular'
 import { UserProvider } from '../../providers/user/user'
-import { FirebaseProvider } from '../../providers/firebase/firebase'
 import { TabsPage } from '../tabs/tabs'
 
 @Component({
@@ -27,12 +26,12 @@ export class LoginPage {
 
   login() {
     this.user.login(this.account).catch(err => {
-        let toast = this.toastCtrl.create({
-          message: this.loginErrorString,
-          duration: 3000,
-          position: 'bottom'
-        })
-        toast.present()
+      let toast = this.toastCtrl.create({
+        message: this.loginErrorString,
+        duration: 3000,
+        position: 'bottom'
       })
+      toast.present()
+    })
   }
 }

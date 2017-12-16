@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Api } from '../api/api'
-import { FirebaseError } from 'firebase'
 import { FcmProvider } from '../../providers/fcm/fcm'
 import { FirestoreProvider } from '../../providers/firestore/firestore'
-import { User } from '../../models/user'
 import * as firebase from 'firebase'
 
 @Injectable()

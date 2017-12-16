@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Api } from '../api/api'
 import { FCM } from '@ionic-native/fcm'
 import { Platform } from 'ionic-angular'
 import { FirestoreProvider } from '../../providers/firestore/firestore'
@@ -13,7 +11,6 @@ export class FcmProvider {
   constructor(
     public plt: Platform,
     private fcm: FCM,
-    private api: Api,
     public firestoreProvider: FirestoreProvider) {
     this.messaging = firebase.messaging()
     this.messaging.onMessage(payload => console.log(payload))

@@ -1,9 +1,7 @@
 import { Component } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
-import { NavController, ToastController } from 'ionic-angular'
+import { ToastController } from 'ionic-angular'
 import { UserProvider } from '../../providers/user/user'
-import { FcmProvider } from '../../providers/fcm/fcm'
-import { FirestoreProvider } from '../../providers/firestore/firestore'
 
 @Component({
   selector: 'page-signup',
@@ -21,7 +19,6 @@ export class SignupPage {
   private signupErrorString: string
 
   constructor(
-    private navCtrl: NavController,
     private user: UserProvider,
     private toastCtrl: ToastController,
     private translateService: TranslateService,

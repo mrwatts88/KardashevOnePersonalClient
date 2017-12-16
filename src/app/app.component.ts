@@ -3,7 +3,6 @@ import { SplashScreen } from '@ionic-native/splash-screen'
 import { StatusBar } from '@ionic-native/status-bar'
 import { TranslateService } from '@ngx-translate/core'
 import { Config, Nav, Platform } from 'ionic-angular'
-import { FcmProvider } from '../providers/fcm/fcm'
 import { UserProvider } from '../providers/user/user'
 import { WelcomePage } from '../pages/welcome/welcome'
 import { TabsPage } from '../pages/tabs/tabs'
@@ -44,11 +43,10 @@ export class MyApp {
 
   constructor(
     private translate: TranslateService,
-    private platform: Platform,
+    public platform: Platform,
     private config: Config,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
-    private fcmProvider: FcmProvider,
     private userProvider: UserProvider,
     private observableProvider: ObservableProvider) {
 

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
-import { NavController, ToastController } from 'ionic-angular'
+import { ToastController } from 'ionic-angular'
 import { UserProvider } from '../../providers/user/user'
-import { TabsPage } from '../tabs/tabs'
 
 @Component({
   selector: 'page-login',
@@ -17,7 +16,6 @@ export class LoginPage {
   private loginErrorString: string
 
   constructor(
-    private navCtrl: NavController,
     private user: UserProvider,
     private toastCtrl: ToastController,
     private translateService: TranslateService) {

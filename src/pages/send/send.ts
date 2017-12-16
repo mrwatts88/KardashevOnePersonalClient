@@ -6,7 +6,6 @@ import { DeliverySend } from '../../providers/delivery-send/delivery-send'
 import { UserProvider } from '../../providers/user/user'
 import { ItemCreatePage } from '../item-create/item-create'
 import { ItemDetailPage } from '../item-detail/item-detail'
-import { WelcomePage } from '../welcome/welcome'
 import { Item } from '../../models/item'
 
 @Component({

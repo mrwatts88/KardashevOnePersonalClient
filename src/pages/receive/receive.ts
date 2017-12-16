@@ -3,7 +3,6 @@ import { NavController, ModalController, NavParams, AlertController } from 'ioni
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
 import { Platform } from 'ionic-angular'
 import { DeliveryReceive } from '../../providers/delivery-receive/delivery-receive'
-import { ItemCreatePage } from '../item-create/item-create'
 import { ItemDetailPage } from '../item-detail/item-detail'
 import { Item } from '../../models/item'
 

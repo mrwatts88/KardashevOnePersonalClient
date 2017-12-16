@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
-import { NavController, Tabs } from 'ionic-angular'
+import { Tabs } from 'ionic-angular'
 import { SendPage } from '../send/send'
 import { ReceivePage } from '../receive/receive'
 import { SettingsPage } from '../settings/settings'

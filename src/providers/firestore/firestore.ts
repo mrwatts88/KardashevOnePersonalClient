@@ -10,6 +10,12 @@ export class FirestoreProvider {
     this.db = firebase.firestore()
   }
 
+  getPendingShipments(uid: string){
+    return this.db.collection("UserData").doc(uid).get().then(result => {
+      return result.get("pendingShipments")
+    })
+  }
+
   insertUser(userData) {
     return this.db.collection("UserData").doc(userData.uid).set(userData)
   }

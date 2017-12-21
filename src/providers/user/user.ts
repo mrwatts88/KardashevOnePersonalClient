@@ -3,6 +3,7 @@ import { Api } from '../api/api'
 import { FcmProvider } from '../../providers/fcm/fcm'
 import { FirestoreProvider } from '../../providers/firestore/firestore'
 import * as firebase from 'firebase'
+import { firestore } from 'firebase'
 
 @Injectable()
 export class UserProvider {
@@ -10,6 +11,10 @@ export class UserProvider {
     public firestoreProvider: FirestoreProvider,
     public fcmProvider: FcmProvider,
     public api: Api) { }
+
+  getPendingShipments(){
+    return this.firestoreProvider.getPendingShipments(firebase.auth().currentUser.uid)
+  }
 
   signup(accountInfo: any) {
     let _user

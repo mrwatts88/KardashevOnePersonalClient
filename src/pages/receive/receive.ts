@@ -29,10 +29,10 @@ export class ReceivePage {
   }
 
   getPendingDeliveries() {
-    // this.deliveryReceive.getPendingDeliveries().subscribe(deliveryObj => {
-    //   for (let delivery of deliveryObj['pending'])
-    //     this.pendingDeliveries.push(delivery)
-    // })
+    this.deliveryReceive.getPendingDeliveries().then(pendingShipments => {
+      for (let shipment of pendingShipments)
+        this.pendingDeliveries.push(shipment)
+    })
   }
 
   openItemDetail(item: Item) {

@@ -24,8 +24,9 @@ export class ReceivePage {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
 
-  ionViewDidLoad() {
-    this.getPendingDeliveries() // TODO: This is only called the first time the receive page is visited, maybe call it more?
+  ionViewDidEnter(){
+    this.pendingDeliveries = []
+    this.getPendingDeliveries()
   }
 
   getPendingDeliveries() {

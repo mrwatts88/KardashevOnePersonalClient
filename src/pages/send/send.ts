@@ -63,11 +63,11 @@ export class SendPage {
 
   showAddItemPage(): void {
     let addModal = this.modalCtrl.create(ItemCreatePage)
+    addModal.present()
     addModal.onDidDismiss(item => {
       if (item)
         this.addItemToShipment(item)
     })
-    addModal.present()
   }
 
   addItemToShipment(item): void {

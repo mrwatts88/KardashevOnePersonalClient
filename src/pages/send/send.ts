@@ -14,7 +14,7 @@ import { Item } from '../../models/item'
 })
 export class SendPage {
   // TODO: Create a shipment class, add sender property
-  shipmentInfo: { recipient: string, items: Item[] }
+  shipmentInfo: { recipient: string, sender: string, items: Item[] }
 
   confirmSendDialogContent: Object = {
     title: 'Are you sure?',
@@ -44,6 +44,19 @@ export class SendPage {
     private screenOrientation: ScreenOrientation,
     public userProvider: UserProvider) {
     this.resetShipment()
+
+    this.shipmentInfo = {
+      recipient: "+12628946758",
+      sender: "+14145249627",
+      items: [new Item({
+        item: "TestItem",
+        message: "This is a test item being sent to Matt Watts",
+        length: 10,
+        width: 15,
+        height: 5,
+        weight: 25
+      })]}
+
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
@@ -64,6 +77,7 @@ export class SendPage {
   resetShipment(): void {
     this.shipmentInfo = {
       recipient: "",
+      sender: "",
       items: []
     }
   }

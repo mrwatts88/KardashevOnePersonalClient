@@ -21,7 +21,8 @@ export class UserProvider {
           username: accountInfo.username,
           email: user.email,
           phoneNumber: accountInfo.phoneNumber,
-          fcmToken: undefined
+          fcmToken: undefined,
+          pendingShipments: []
         }
         this.fcmProvider.getFcmToken().then(token => {
           _user.fcmToken = token

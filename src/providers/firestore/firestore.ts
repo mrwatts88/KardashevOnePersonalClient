@@ -11,9 +11,7 @@ export class FirestoreProvider {
   }
 
   getPendingShipments(uid: string){
-    return this.db.collection("UserData").doc(uid).get().then(result => {
-      return result.get("pendingShipments")
-    })
+    return this.db.collection("UserData").doc(uid).collection('pendingShipments').get()
   }
 
   insertUser(userData) {

@@ -31,7 +31,6 @@ export class ItemCreatePage {
     // Watch the form for changes
     this.form.valueChanges.subscribe(() => {
       this.isReadyToSave = this.form.valid
-      console.log(this.form.valid)
     })
   }
 

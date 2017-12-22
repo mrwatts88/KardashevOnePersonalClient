@@ -24,15 +24,16 @@ export class ReceivePage {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.pendingDeliveries = []
     this.getPendingDeliveries()
   }
 
   getPendingDeliveries() {
     this.deliveryReceive.getPendingDeliveries().then(pendingShipments => {
-      for (let shipment of pendingShipments)
-        this.pendingDeliveries.push(shipment)
+      for (let shipment of pendingShipments.docs) {
+        this.pendingDeliveries.push(shipment.data())
+      }
     })
   }
 

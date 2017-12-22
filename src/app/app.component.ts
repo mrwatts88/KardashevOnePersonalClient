@@ -42,13 +42,13 @@ export class MyApp {
   ]
 
   constructor(
-    private translate: TranslateService,
+    public translate: TranslateService,
     public platform: Platform,
-    private config: Config,
-    private statusBar: StatusBar,
-    private splashScreen: SplashScreen,
-    private userProvider: UserProvider,
-    private observableProvider: ObservableProvider) {
+    public config: Config,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public userProvider: UserProvider,
+    public observableProvider: ObservableProvider) {
 
     this.initTranslate()
     firebase.auth().onAuthStateChanged(user => this.nav.setRoot(user ? TabsPage : WelcomePage))

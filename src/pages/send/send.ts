@@ -7,6 +7,7 @@ import { UserProvider } from '../../providers/user/user'
 import { ItemCreatePage } from '../item-create/item-create'
 import { ItemDetailPage } from '../item-detail/item-detail'
 import { Item } from '../../models/item'
+import * as firebase from 'firebase'
 
 @Component({
   selector: 'page-send',
@@ -55,7 +56,8 @@ export class SendPage {
         width: 15,
         height: 5,
         weight: 25
-      })]}
+      })]
+    }
 
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
@@ -97,6 +99,7 @@ export class SendPage {
   }
 
   initShipment() {
+    this.shipmentInfo.sender = firebase.auth().currentUser.email
     this.deliverySend.initShipment(this.shipmentInfo).subscribe(resp => { }, err => { })
     this.resetShipment()
   }

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Camera } from '@ionic-native/camera'
 import { NavController, ViewController } from 'ionic-angular'
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
 @Component({
   selector: 'page-item-create',
@@ -17,7 +18,8 @@ export class ItemCreatePage {
   constructor(public navCtrl: NavController,
     public viewCtrl: ViewController,
     public formBuilder: FormBuilder,
-    public camera: Camera) {
+    public camera: Camera,
+    public toastCtrl: ToastController) {
     this.form = formBuilder.group({
       profilePic: [''],
       name: ['', Validators.required],
@@ -27,14 +29,7 @@ export class ItemCreatePage {
       length: ['', Validators.required],
       weight: ['', Validators.required]
     })
-
-    // Watch the form for changes
-    this.form.valueChanges.subscribe(() => {
-      this.isReadyToSave = this.form.valid
-    })
   }
-
-  ionViewDidLoad() { }
 
   getPicture() {
     if (Camera['installed']()) {
@@ -62,16 +57,20 @@ export class ItemCreatePage {
     return `url(${this.form.controls['profilePic'].value})`
   }
 
-  // The user cancelled, so we dismiss without sending data back.
   cancel() {
     this.viewCtrl.dismiss()
   }
 
-  // The user is done and wants to create the item, so return it
-  // back to the presenter.
   done() {
-    if (!this.form.valid)
+    if (!this.form.valid) {
+      let toast = this.toastCtrl.create({
+        message: 'Please fill out all fields.',
+        duration: 3000,
+        position: 'bottom'
+      })
+      toast.present()
       return
+    }
     this.viewCtrl.dismiss(this.form.value)
   }
 }

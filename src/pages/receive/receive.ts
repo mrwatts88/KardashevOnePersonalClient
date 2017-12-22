@@ -5,13 +5,14 @@ import { Platform } from 'ionic-angular'
 import { DeliveryReceive } from '../../providers/delivery-receive/delivery-receive'
 import { ItemDetailPage } from '../item-detail/item-detail'
 import { Item } from '../../models/item'
+import { Shipment } from '../../models/shipment'
 
 @Component({
   selector: 'page-receive',
   templateUrl: 'receive.html',
 })
 export class ReceivePage {
-  pendingDeliveries: Object[] = []
+  pendingDeliveries: Shipment[] = []
 
   constructor(public alertCtrl: AlertController,
     public modalCtrl: ModalController,
@@ -32,7 +33,11 @@ export class ReceivePage {
   getPendingDeliveries() {
     this.deliveryReceive.getPendingDeliveries().then(pendingShipments => {
       for (let shipment of pendingShipments.docs) {
-        this.pendingDeliveries.push(shipment.data())
+        let _shipment = {
+          id: shipment.id,
+          data: shipment.data()
+        }
+        this.pendingDeliveries.push(new Shipment(_shipment))
       }
     })
   }
@@ -40,4 +45,21 @@ export class ReceivePage {
   openItemDetail(item: Item) {
     this.navCtrl.push(ItemDetailPage, { item: item })
   }
+
+  deletePendingShipment(shipment: Shipment){
+    this.deliveryReceive.deletePendingDelivery(shipment).then(() => {
+      for(let i = 0; i < this.pendingDeliveries.length; i++){
+        if(this.pendingDeliveries[i].id == shipment.id)
+          this.pendingDeliveries.splice(i,1)
+        break
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  acceptPendingShipment(shipment){
+    
+  }
+
 }

@@ -14,6 +14,10 @@ export class FirestoreProvider {
     return this.db.collection("UserData").doc(uid).collection('pendingShipments').get()
   }
 
+  deletePendingShipment(uid: string, shipmentId: string){
+    return this.db.collection("UserData").doc(uid).collection("pendingShipments").doc(shipmentId).delete()
+  }
+
   insertUser(userData) {
     return this.db.collection("UserData").doc(userData.uid).set(userData)
   }

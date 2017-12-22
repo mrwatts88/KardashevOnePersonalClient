@@ -10,8 +10,10 @@
   <p class="gray-text">
     Available for Delivery:
   </p>
-  <ion-item *ngFor="let shipment of pendingDeliveries;">  
+  <ion-item *ngFor="let shipment of pendingDeliveries;"> 
     <h2>Shipment from {{shipment.sender}}</h2>
+    <button ion-button (click)="acceptPendingShipment(shipment)">Accept</button>
+    <button ion-button color="danger" (click)="deletePendingShipment(shipment)">Reject</button>
     <ion-item id="hover-highlight" *ngFor="let item of shipment.items;" (click)="openItemDetail(item)">
       <ion-avatar item-start>
         <img src={{item.profilePic}}>

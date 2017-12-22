@@ -4,6 +4,7 @@ import { FcmProvider } from '../../providers/fcm/fcm'
 import { FirestoreProvider } from '../../providers/firestore/firestore'
 import * as firebase from 'firebase'
 import { firestore } from 'firebase'
+import { Shipment } from '../../models/shipment'
 
 @Injectable()
 export class UserProvider {
@@ -14,6 +15,10 @@ export class UserProvider {
 
   getPendingShipments(){
     return this.firestoreProvider.getPendingShipments(firebase.auth().currentUser.uid)
+  }
+
+  deletePendingShipment(shipment: Shipment){
+    return this.firestoreProvider.deletePendingShipment(firebase.auth().currentUser.uid, shipment.id)
   }
 
   signup(accountInfo: any) {

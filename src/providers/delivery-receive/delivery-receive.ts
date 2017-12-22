@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Api } from '../api/api'
 import { UserProvider } from '../user/user'
+import { Shipment } from '../../models/shipment'
 
 @Injectable()
 export class DeliveryReceive {
@@ -8,5 +9,9 @@ export class DeliveryReceive {
 
   getPendingDeliveries() {
     return this.userProvider.getPendingShipments()
+  }
+
+  deletePendingDelivery(shipment: Shipment){
+    return this.userProvider.deletePendingShipment(shipment)
   }
 }

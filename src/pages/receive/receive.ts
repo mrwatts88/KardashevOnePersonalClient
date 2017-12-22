@@ -24,7 +24,7 @@ export class ReceivePage {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.pendingDeliveries = []
     this.getPendingDeliveries()
   }

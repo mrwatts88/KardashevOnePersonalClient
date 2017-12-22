@@ -46,20 +46,16 @@ export class ReceivePage {
     this.navCtrl.push(ItemDetailPage, { item: item })
   }
 
-  deletePendingShipment(shipment: Shipment){
+  deletePendingShipment(shipment: Shipment, index) {
     this.deliveryReceive.deletePendingDelivery(shipment).then(() => {
-      for(let i = 0; i < this.pendingDeliveries.length; i++){
-        if(this.pendingDeliveries[i].id == shipment.id)
-          this.pendingDeliveries.splice(i,1)
-        break
-      }
+      this.pendingDeliveries.splice(index, 1)
     }).catch(err => {
       console.log(err)
     })
   }
 
-  acceptPendingShipment(shipment){
-    
+  acceptPendingShipment(shipment) {
+
   }
 
 }

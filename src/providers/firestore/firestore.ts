@@ -10,12 +10,12 @@ export class FirestoreProvider {
     this.db = firebase.firestore()
   }
 
-  getPendingShipments(uid: string){
+  getPendingShipments(uid: string) {
     return this.db.collection("UserData").doc(uid).collection('pendingShipments').get()
   }
 
-  deletePendingShipment(uid: string, shipmentId: string){
-    return this.db.collection("UserData").doc(uid).collection("pendingShipments").doc(shipmentId).delete()
+  deletePendingShipment(uid: string, shipmentId: string) {
+    return this.db.collection("UserData").doc(uid).collection('pendingShipments').doc(shipmentId).delete()
   }
 
   insertUser(userData) {

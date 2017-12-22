@@ -12,7 +12,7 @@ import { Shipment } from '../../models/shipment'
   templateUrl: 'receive.html',
 })
 export class ReceivePage {
-  pendingDeliveries: Shipment[] = []
+  pendingShipments: Shipment[] = []
 
   constructor(public alertCtrl: AlertController,
     public modalCtrl: ModalController,
@@ -26,7 +26,7 @@ export class ReceivePage {
   }
 
   ionViewWillEnter() {
-    this.pendingDeliveries = []
+    this.pendingShipments = []
     this.getPendingDeliveries()
   }
 
@@ -37,7 +37,7 @@ export class ReceivePage {
           id: shipment.id,
           data: shipment.data()
         }
-        this.pendingDeliveries.push(new Shipment(_shipment))
+        this.pendingShipments.push(new Shipment(_shipment))
       }
     })
   }
@@ -48,7 +48,9 @@ export class ReceivePage {
 
   deletePendingShipment(shipment: Shipment, index) {
     this.deliveryReceive.deletePendingDelivery(shipment).then(() => {
-      this.pendingDeliveries.splice(index, 1)
+      console.log(this.pendingShipments)
+      console.log(index)
+      this.pendingShipments.splice(index, 1)
     }).catch(err => {
       console.log(err)
     })

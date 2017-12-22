@@ -10,7 +10,7 @@
   <p class="gray-text">
     Available for Delivery:
   </p>
-  <ion-list *ngFor="let shipment of pendingDeliveries; let i = index">
+  <ion-list *ngFor="let shipment of pendingShipments; let i = index">
     <p>From {{shipment.sender}}</p>
     <button small ion-button (click)="acceptPendingShipment(shipment)">Send Now</button>
     <button small ion-button color="danger" (click)="deletePendingShipment(shipment, i)">Reject</button>

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core'
 //  Generic REST Api handler. 
 @Injectable()
 export class Api {
-  url: string = 'http://localhost:3000'
+  url: string = 'https://kardashevserver.herokuapp.com'
   constructor(public http: HttpClient) { }
 
   get(endpoint: string, _params?: any, reqOpts?: any) {

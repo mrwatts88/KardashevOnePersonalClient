@@ -77,3 +77,9 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+
+// Prevents confirm popup from being full too tall
+.button-inner{
+  height: 20px !important;
+}

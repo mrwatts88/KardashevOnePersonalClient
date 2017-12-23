@@ -25,7 +25,8 @@ export class LoginPage {
   login() {
     this.user.login(this.account).catch(err => {
       let toast = this.toastCtrl.create({
-        message: this.loginErrorString,
+        // message: this.loginErrorString,
+        message: err,
         duration: 3000,
         position: 'bottom'
       })

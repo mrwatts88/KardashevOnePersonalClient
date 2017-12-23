@@ -16,6 +16,6 @@ export class HistoryPage {
     let popover = this.popoverCtrl.create(PopoverPage)
     popover.present({
       ev: myEvent
-    });
+    })
   }
 }

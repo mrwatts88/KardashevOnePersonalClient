@@ -7,8 +7,6 @@ import { SettingsPage } from '../settings/settings'
 import { HistoryPage } from '../history/history'
 import { Subscription } from 'rxjs/Subscription'
 import { ObservableProvider } from '../../providers/observable/observable'
-import { DeliveryReceive } from '../../providers/delivery-receive/delivery-receive';
-
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html'
@@ -27,7 +25,7 @@ export class TabsPage {
   subscription: Subscription
 
   constructor(public translateService: TranslateService,
-    public observableProvider: ObservableProvider, public deliveryrecieveProvider: DeliveryReceive) {
+    public observableProvider: ObservableProvider) {
     this.subscription = this.observableProvider.getMessage().
       subscribe(tabIndexFromNav => {
         this.tabRef.select(tabIndexFromNav)

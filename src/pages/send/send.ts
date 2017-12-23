@@ -2,13 +2,13 @@ import { Component } from '@angular/core'
 import { NavController, ModalController, NavParams, AlertController } from 'ionic-angular'
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
 import { Platform } from 'ionic-angular'
-import { DeliverySend } from '../../providers/delivery-send/delivery-send'
 import { UserProvider } from '../../providers/user/user'
 import { ItemCreatePage } from '../item-create/item-create'
 import { ItemDetailPage } from '../item-detail/item-detail'
 import { Item } from '../../models/item'
 import { PopoverController } from 'ionic-angular'
 import { PopoverPage } from '../popover/popover'
+import { ShipmentProvider } from '../../providers/shipment/shipment';
 import * as firebase from 'firebase'
 @Component({
   selector: 'page-send',
@@ -38,13 +38,13 @@ export class SendPage {
   constructor(
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
-    public deliverySend: DeliverySend,
     public plt: Platform,
     public navCtrl: NavController,
     public navParams: NavParams,
     private screenOrientation: ScreenOrientation,
     public userProvider: UserProvider,
-    public popoverCtrl: PopoverController) {
+    public popoverCtrl: PopoverController,
+    public shipmentProvider: ShipmentProvider) {
     this.resetShipment()
 
     this.shipmentInfo = {
@@ -108,7 +108,7 @@ export class SendPage {
 
   initShipment() {
     this.shipmentInfo.sender = firebase.auth().currentUser.email
-    this.deliverySend.initShipment(this.shipmentInfo).subscribe(resp => { }, err => { })
+    this.shipmentProvider.initShipment(this.shipmentInfo).subscribe(resp => { }, err => { })
     this.resetShipment()
   }
 }

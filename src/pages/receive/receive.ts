@@ -2,12 +2,12 @@ import { Component } from '@angular/core'
 import { NavController, ModalController, NavParams, AlertController } from 'ionic-angular'
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
 import { Platform } from 'ionic-angular'
-import { DeliveryReceive } from '../../providers/delivery-receive/delivery-receive'
 import { ItemDetailPage } from '../item-detail/item-detail'
 import { Item } from '../../models/item'
 import { Shipment } from '../../models/shipment'
 import { PopoverController } from 'ionic-angular'
 import { PopoverPage } from '../popover/popover'
+import { ShipmentProvider } from '../../providers/shipment/shipment';
 @Component({
   selector: 'page-receive',
   templateUrl: 'receive.html',
@@ -17,19 +17,19 @@ export class ReceivePage {
 
   constructor(public alertCtrl: AlertController,
     public modalCtrl: ModalController,
-    public deliveryReceive: DeliveryReceive,
     public plt: Platform,
     public navCtrl: NavController,
     public navParams: NavParams,
     private screenOrientation: ScreenOrientation,
-    public popoverCtrl: PopoverController) {
+    public popoverCtrl: PopoverController,
+    public shipmentProvider: ShipmentProvider) {
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
 
   ionViewWillEnter() {
     this.pendingShipments = []
-    this.getPendingDeliveries()
+    this.getPendingShipments()
   }
 
   presentPopover(myEvent) {
@@ -39,8 +39,8 @@ export class ReceivePage {
     })
   }
 
-  getPendingDeliveries() {
-    this.deliveryReceive.getPendingDeliveries().then(pendingShipments => {
+  getPendingShipments() {
+    this.shipmentProvider.getPendingShipments().then(pendingShipments => {
       for (let shipment of pendingShipments.docs) {
         let _shipment = {
           id: shipment.id,
@@ -52,21 +52,17 @@ export class ReceivePage {
   }
 
   openItemDetail(item: Item) {
-    this.navCtrl.push(ItemDetailPage, { item: item })
+    this.navCtrl.push(ItemDetailPage, { item })
   }
 
   deletePendingShipment(shipment: Shipment, index) {
-    this.deliveryReceive.deletePendingDelivery(shipment).then(() => {
-      console.log(this.pendingShipments)
-      console.log(index)
+    this.shipmentProvider.deletePendingShipment(shipment).then(() => {
       this.pendingShipments.splice(index, 1)
-    }).catch(err => {
-      console.log(err)
-    })
+    }).catch(err => console.log(err))
   }
 
   acceptPendingShipment(shipment) {
-
+    // TODO
   }
 
 }

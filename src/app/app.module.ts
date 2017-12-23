@@ -13,7 +13,6 @@ import { UserProvider } from '../providers/user/user'
 import { Api } from '../providers/api/api'
 import { MyApp } from './app.component'
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
-import { DeliverySend } from '../providers/delivery-send/delivery-send'
 import { ItemCreatePage } from '../pages/item-create/item-create'
 import { SendPage } from '../pages/send/send'
 import { ReceivePage } from '../pages/receive/receive'
@@ -24,13 +23,13 @@ import { TabsPage } from '../pages/tabs/tabs'
 import { LoginPage } from '../pages/login/login'
 import { SignupPage } from '../pages/signup/signup'
 import { ItemDetailPage } from '../pages/item-detail/item-detail'
-import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive'
 import { FcmProvider } from '../providers/fcm/fcm'
 import { FCM } from '@ionic-native/fcm'
 import * as firebase from 'firebase'
 import { FirestoreProvider } from '../providers/firestore/firestore'
 import { ObservableProvider } from '../providers/observable/observable'
-import { PopoverPage } from '../pages/popover/popover';
+import { PopoverPage } from '../pages/popover/popover'
+import { ShipmentProvider } from '../providers/shipment/shipment';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
@@ -111,8 +110,6 @@ export function provideSettings(storage: Storage) {
   providers: [
     Api,
     UserProvider,
-    DeliverySend,
-    DeliveryReceive,
     Camera,
     ScreenOrientation,
     SplashScreen,
@@ -124,7 +121,8 @@ export function provideSettings(storage: Storage) {
     FCM,
     FirestoreProvider,
     UserProvider,
-    ObservableProvider
+    ObservableProvider,
+    ShipmentProvider
   ]
 })
 export class AppModule { }

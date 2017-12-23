@@ -23,8 +23,6 @@ export class FirestoreProvider {
   }
 
   updateFcmToken(uid: string, fcmToken: string) {
-    return this.db.collection("UserData").doc(uid).update({
-      fcmToken: fcmToken
-    })
+    return this.db.collection("UserData").doc(uid).update({ fcmToken })
   }
 }

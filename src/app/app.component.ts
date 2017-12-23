@@ -14,21 +14,9 @@ import { ObservableProvider } from '../providers/observable/observable'
 import * as firebase from 'firebase'
 
 @Component({
-  template: `
-  <ion-menu [content]="content" persistant="true">
-    <ion-content>
-      <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-        <button menuClose ion-item (click)="logout()">
-          Log Out
-        </button>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  <ion-nav #content [root]="rootPage"></ion-nav>`
+  template: `<ion-nav #content [root]="rootPage"></ion-nav>`
 })
+
 export class MyApp {
   rootPage = HistoryPage // TODO: Change to a loading page
 

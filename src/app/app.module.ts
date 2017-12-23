@@ -30,6 +30,7 @@ import { FCM } from '@ionic-native/fcm'
 import * as firebase from 'firebase'
 import { FirestoreProvider } from '../providers/firestore/firestore'
 import { ObservableProvider } from '../providers/observable/observable'
+import { PopoverPage } from '../pages/popover/popover';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
@@ -76,7 +77,8 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     LoginPage,
     SignupPage,
-    ItemDetailPage
+    ItemDetailPage,
+    PopoverPage
   ],
   imports: [
     BrowserModule,
@@ -103,7 +105,8 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     LoginPage,
     SignupPage,
-    ItemDetailPage
+    ItemDetailPage,
+    PopoverPage
   ],
   providers: [
     Api,

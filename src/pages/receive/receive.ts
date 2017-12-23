@@ -6,7 +6,8 @@ import { DeliveryReceive } from '../../providers/delivery-receive/delivery-recei
 import { ItemDetailPage } from '../item-detail/item-detail'
 import { Item } from '../../models/item'
 import { Shipment } from '../../models/shipment'
-
+import { PopoverController } from 'ionic-angular'
+import { PopoverPage } from '../popover/popover'
 @Component({
   selector: 'page-receive',
   templateUrl: 'receive.html',
@@ -20,7 +21,8 @@ export class ReceivePage {
     public plt: Platform,
     public navCtrl: NavController,
     public navParams: NavParams,
-    private screenOrientation: ScreenOrientation) {
+    private screenOrientation: ScreenOrientation,
+    public popoverCtrl: PopoverController) {
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
   }
@@ -28,6 +30,13 @@ export class ReceivePage {
   ionViewWillEnter() {
     this.pendingShipments = []
     this.getPendingDeliveries()
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage)
+    popover.present({
+      ev: myEvent
+    })
   }
 
   getPendingDeliveries() {

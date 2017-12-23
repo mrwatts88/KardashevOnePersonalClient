@@ -7,14 +7,14 @@ import { UserProvider } from '../../providers/user/user'
 import { ItemCreatePage } from '../item-create/item-create'
 import { ItemDetailPage } from '../item-detail/item-detail'
 import { Item } from '../../models/item'
+import { PopoverController } from 'ionic-angular'
+import { PopoverPage } from '../popover/popover'
 import * as firebase from 'firebase'
-
 @Component({
   selector: 'page-send',
   templateUrl: 'send.html',
 })
 export class SendPage {
-  // TODO: Create a shipment class, add sender property
   shipmentInfo: { recipient: string, sender: string, items: Item[] }
 
   confirmSendDialogContent: Object = {
@@ -43,7 +43,8 @@ export class SendPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private screenOrientation: ScreenOrientation,
-    public userProvider: UserProvider) {
+    public userProvider: UserProvider,
+    public popoverCtrl: PopoverController) {
     this.resetShipment()
 
     this.shipmentInfo = {
@@ -61,6 +62,13 @@ export class SendPage {
 
     if (this.plt.is('mobile'))
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage)
+    popover.present({
+      ev: myEvent
+    })
   }
 
   showAddItemPage(): void {

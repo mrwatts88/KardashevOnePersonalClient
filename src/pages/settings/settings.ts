@@ -4,10 +4,8 @@ import { TranslateService } from '@ngx-translate/core'
 import { NavController, NavParams } from 'ionic-angular'
 import { Settings } from '../../providers/settings/settings'
 import { UserProvider } from '../../providers/user/user'
-
-//  The Settings page is a simple form that syncs with a Settings provider
-//  to enable the user to customize settings for the app.
-
+import { PopoverController } from 'ionic-angular'
+import { PopoverPage } from '../popover/popover'
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html'
@@ -31,7 +29,15 @@ export class SettingsPage {
     public formBuilder: FormBuilder,
     public navParams: NavParams,
     public translate: TranslateService,
-    public userProvider:UserProvider) {
+    public userProvider: UserProvider,
+    public popoverCtrl: PopoverController) {
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage)
+    popover.present({
+      ev: myEvent
+    })
   }
 
   _buildForm() {
@@ -77,9 +83,9 @@ export class SettingsPage {
 
   ngOnChanges() { }
 
-  logout(){
-    this.userProvider.logout().then( () => {
-    }).catch( () => {
+  logout() {
+    this.userProvider.logout().then(() => {
+    }).catch(() => {
       console.log("Could not log out")
     })
   }

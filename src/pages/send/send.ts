@@ -51,7 +51,7 @@ export class SendPage {
       recipient: "+12628946758",
       sender: "+14145249627",
       items: [new Item({
-        item: "TestItem",
+        name: "TestItem",
         message: "This is a test item being sent to Matt Watts",
         length: 10,
         width: 15,

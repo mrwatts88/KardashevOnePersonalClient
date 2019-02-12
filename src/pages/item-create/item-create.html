@@ -1,17 +1,15 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{ 'ITEM_CREATE_TITLE' | translate }}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="cancel()">
-        <span color="primary" showWhen="ios">
-          {{ 'CANCEL_BUTTON' | translate }}
+        <span color="primary" showWhen="ios"> {{ 'CANCEL_BUTTON' | translate }}
         </span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+        <ion-icon name="md-close" showWhen="core,android,windows"></ion-icon>
       </button>
     </ion-buttons>
     <ion-buttons end>
-      <button ion-button (click)="done()" [disabled]="!isReadyToSave" strong>
+      <button ion-button (click)="done()" strong>
         <span color="primary" showWhen="ios">
           {{ 'DONE_BUTTON' | translate }}
         </span>
@@ -19,36 +17,32 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding="">
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
-   
+  <form *ngIf="form" [formGroup]="form">
     <ion-list>
       <ion-item>
-        <ion-label fixed>{{ 'ITEM_NAME_PLACEHOLDER' | translate }}</ion-label> 
+        <ion-label fixed>{{ 'ITEM_NAME_PLACEHOLDER' | translate }}</ion-label>
         <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
       <ion-item>
-          <ion-label fixed>Message</ion-label>
+        <ion-label fixed>Message</ion-label>
         <ion-input type="text" formControlName="message"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Length</ion-label> 
+        <ion-label fixed>Length</ion-label>
         <ion-input type="text" formControlName="length"></ion-input>
       </ion-item>
       <ion-item>
-          <ion-label fixed>Width</ion-label>
+        <ion-label fixed>Width</ion-label>
         <ion-input type="text" formControlName="width"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Height</ion-label> 
+        <ion-label fixed>Height</ion-label>
         <ion-input type="text" formControlName="height"></ion-input>
       </ion-item>
       <ion-item>
-          <ion-label fixed>Weight</ion-label>
+        <ion-label fixed>Weight</ion-label>
         <ion-input type="text" formControlName="weight"></ion-input>
       </ion-item>
     </ion-list>

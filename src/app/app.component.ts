@@ -1,76 +1,71 @@
-import { Component, ViewChild } from '@angular/core';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
-import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform } from 'ionic-angular';
-import { Settings } from '../providers/settings/settings';
-import { WelcomePage } from '../pages/welcome/welcome';
+import { Component, ViewChild } from '@angular/core'
+import { SplashScreen } from '@ionic-native/splash-screen'
+import { StatusBar } from '@ionic-native/status-bar'
+import { TranslateService } from '@ngx-translate/core'
+import { Config, Nav, Platform } from 'ionic-angular'
+import { UserProvider } from '../providers/user/user'
+import { WelcomePage } from '../pages/welcome/welcome'
+import { TabsPage } from '../pages/tabs/tabs'
+import { HistoryPage } from '../pages/history/history'
+import { SendPage } from '../pages/send/send'
+import { ReceivePage } from '../pages/receive/receive'
+import { SettingsPage } from '../pages/settings/settings'
+import { ObservableProvider } from '../providers/observable/observable'
+import * as firebase from 'firebase'
 
 @Component({
-  template: `<ion-menu [content]="content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Pages</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content>
-      <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-      </ion-list>
-    </ion-content>
-
-  </ion-menu>
-  <ion-nav #content [root]="rootPage"></ion-nav>`
+  template: `<ion-nav #content [root]="rootPage"></ion-nav>`
 })
-export class MyApp {
-  rootPage = WelcomePage;
 
-  @ViewChild(Nav) nav: Nav;
+export class MyApp {
+  rootPage = HistoryPage // TODO: Change to a loading page
+
+  @ViewChild(Nav) nav: Nav
 
   pages: any[] = [
-    { title: 'Welcome', component: 'WelcomePage' },
-    { title: 'Tabs', component: 'TabsPage' },
-    { title: 'Cards', component: 'CardsPage' },
-    { title: 'Content', component: 'ContentPage' },
-    { title: 'Login', component: 'LoginPage' },
-    { title: 'Signup', component: 'SignupPage' },
-    { title: 'Master Detail', component: 'ListMasterPage' },
-    { title: 'Menu', component: 'MenuPage' },
-    { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Search', component: 'SearchPage' }
+    { title: 'Send', component: SendPage },
+    { title: 'Receive', component: ReceivePage },
+    { title: 'History', component: HistoryPage },
+    { title: 'Settings', component: SettingsPage }
   ]
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(
+    public translate: TranslateService,
+    public platform: Platform,
+    public config: Config,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public userProvider: UserProvider,
+    public observableProvider: ObservableProvider) {
+
+    this.initTranslate()
+    firebase.auth().onAuthStateChanged(user => this.nav.setRoot(user ? TabsPage : WelcomePage))
+
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-    this.initTranslate();
+      // plugins are available
+      if (platform.is('mobile')) {
+        this.statusBar.styleDefault()
+        this.splashScreen.hide()
+      }
+    })
   }
 
   initTranslate() {
-    // Set the default language for translation strings, and the current language.
-    this.translate.setDefaultLang('en');
-
-    if (this.translate.getBrowserLang() !== undefined) {
-      this.translate.use(this.translate.getBrowserLang());
-    } else {
-      this.translate.use('en'); // Set your language here
-    }
-
+    this.translate.setDefaultLang('en')
+    if (this.translate.getBrowserLang() !== undefined)
+      this.translate.use(this.translate.getBrowserLang())
+    else
+      this.translate.use('en')
     this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
-      this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
-    });
+      this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT)
+    })
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.observableProvider.sendMessage(this.pages.indexOf(page))
+  }
+
+  logout() {
+    this.userProvider.logout()
   }
 }

@@ -1,67 +1,56 @@
-import 'rxjs/add/operator/toPromise';
-import { Injectable } from '@angular/core';
-import { Api } from '../api/api';
-
-//  This User provider makes calls to our API at the `login` and `signup` endpoints.
-
-//  Expects `login` and `signup` to return a JSON object: 
-//
-//  {
-//    status: 'success',
-//    user: {
-//      // User fields like "id", "name", "email", etc.
-//    }
-//  }
-//
+import { Injectable } from '@angular/core'
+import { Api } from '../api/api'
+import { FcmProvider } from '../../providers/fcm/fcm'
+import { FirestoreProvider } from '../../providers/firestore/firestore'
+import * as firebase from 'firebase'
+import { firestore } from 'firebase'
+import { Shipment } from '../../models/shipment'
 
 @Injectable()
-export class User {
-  _user: any;
+export class UserProvider {
+  constructor(
+    public firestoreProvider: FirestoreProvider,
+    public fcmProvider: FcmProvider,
+    public api: Api) { }
 
-  constructor(public api: Api) { }
-
-  // Send a POST request to our login endpoint  
-  login(accountInfo: any) {
-    let seq = this.api.post('16b5zpf1', accountInfo).share();
-
-    seq.subscribe((res: any) => {
-      // If the API returned a successful response, mark the user as logged in
-      if (res.status == 'success') {
-        this._loggedIn(res);
-      } else {
-      }
-    }, err => {
-      console.error('ERROR', err);
-    });
-
-    return seq;
+  getPendingShipments(){
+    return this.firestoreProvider.getPendingShipments(firebase.auth().currentUser.uid)
   }
 
-  // Send a POST request to our signup endpoint
+  deletePendingShipment(shipment: Shipment){
+    return this.firestoreProvider.deletePendingShipment(firebase.auth().currentUser.uid, shipment.id)
+  }
+
   signup(accountInfo: any) {
-    let seq = this.api.post('signup', accountInfo).share();
-
-    seq.subscribe((res: any) => {
-      // If the API returned a successful response, mark the user as logged in
-      if (res.status == 'success') {
-        this._loggedIn(res);
-      }
-    }, err => {
-      console.error('ERROR', err);
-    });
-
-    return seq;
+    let _user
+    return firebase.auth().createUserWithEmailAndPassword(accountInfo.email, accountInfo.password)
+      .then(user => {
+        _user = {
+          uid: user.uid,
+          displayName: accountInfo.name,
+          username: accountInfo.username,
+          email: user.email,
+          phoneNumber: accountInfo.phoneNumber,
+          fcmToken: undefined,
+          pendingShipments: []
+        }
+        this.fcmProvider.getFcmToken().then(token => {
+          _user.fcmToken = token
+          this.firestoreProvider.insertUser(_user)
+        }).catch(err => { throw err })
+      }).catch(err => { throw err })
   }
 
+  login(accountInfo: any) {
+    return firebase.auth().signInWithEmailAndPassword(accountInfo.email, accountInfo.password).then(
+      () => this.fcmProvider.getFcmToken())
+      .then(token => this.firestoreProvider.updateFcmToken(firebase.auth().currentUser.uid, <string>token))
+      .catch(err => {
+        throw err
+      })
+  }
 
-  // Log the user out, forget the session  
   logout() {
-    this._user = null;
-  }
-
-
-  // Process a login/signup response to store user data
-  _loggedIn(resp) {
-    this._user = resp.user;
+    return firebase.auth().signOut()
   }
 }

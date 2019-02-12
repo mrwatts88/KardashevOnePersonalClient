@@ -1,7 +1,33 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Receive</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content>
+  <p class="gray-text">
+    Available for Delivery:
+  </p>
+  <ion-list>
+    <ion-card *ngFor="let shipment of pendingShipments; let i = index">
+      <ion-card-header>
+        From {{shipment.sender}}
+      </ion-card-header>
+      <ion-card-content>
+        <button small ion-button (click)="acceptPendingShipment(shipment)">Send Now</button>
+        <button small ion-button color="danger" (click)="deletePendingShipment(shipment, i)">Reject</button>
+        <ion-item *ngFor="let item of shipment.items;" (click)="openItemDetail(item)">
+          <ion-avatar item-start>
+            <img src={{item.profilePic}}>
+          </ion-avatar>
+          <h2>{{item.name}}</h2>
+          <p>{{item.message}}</p>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

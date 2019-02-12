@@ -1,25 +1,24 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{ pageTitle }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
 <ion-content>
-
   <form [formGroup]="form" *ngIf="settingsReady">
     <ion-list *ngIf="page == 'main'">
       <ion-item>
         <ion-label>{{ 'SETTINGS_OPTION1' | translate }}</ion-label>
         <ion-toggle formControlName="option1"></ion-toggle>
       </ion-item>
-
       <ion-item>
         <ion-label>{{ 'SETTINGS_OPTION2' | translate }}</ion-label>
         <ion-input formControlName="option2"></ion-input>
       </ion-item>
-
       <ion-item>
         <ion-label>{{ 'SETTINGS_OPTION3' | translate }}</ion-label>
         <ion-select formControlName="option3">
@@ -28,12 +27,10 @@
           <ion-option value="3">3</ion-option>
         </ion-select>
       </ion-item>
-
       <button ion-item [navPush]="subSettings" [navParams]="profileSettings">
         {{ 'SETTINGS_PROFILE_BUTTON' | translate }}
       </button>
     </ion-list>
-
     <ion-list *ngIf="page == 'profile'">
       <ion-item>
         <ion-label>{{ 'SETTINGS_OPTION4' | translate }}</ion-label>
@@ -41,5 +38,5 @@
       </ion-item>
     </ion-list>
   </form>
-
+  <button class="button" (click)="logout()">Log Out</button>
 </ion-content>

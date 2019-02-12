@@ -1,49 +1,31 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http'
+import { Injectable } from '@angular/core'
 
-
-//  Generic REST Api handler.
- 
+//  Generic REST Api handler. 
 @Injectable()
 export class Api {
-  //url: string = 'https://example.com/api';
-  url: string = 'https://requestb.in'
+  url: string = 'https://kardashevserver.herokuapp.com'
+  constructor(public http: HttpClient) { }
 
-  constructor(public http: HttpClient) {
-  }
+  get(endpoint: string, _params?: any, reqOpts?: any) {
+    reqOpts = { 'params': new HttpParams() }
 
-  get(endpoint: string, params?: any, reqOpts?: any) {
-    if (!reqOpts) {
-      reqOpts = {
-        params: new HttpParams()
-      };
-    }
+    for (let k in _params)
+      reqOpts.params = reqOpts.params.append(k, _params[k])
 
-    // Support easy query params for GET requests
-    if (params) {
-      reqOpts.params = new HttpParams();
-      for (let k in params) {
-        reqOpts.params.set(k, params[k]);
-      }
-    }
-    console.log(this.url + '/' + endpoint);
-    return this.http.get(this.url + '/' + endpoint, reqOpts);
+    return this.http.get(this.url + '/' + endpoint, { responseType: 'json', params: _params })
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
-    console.log(this.url + '/' + endpoint)
-    return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+    reqOpts = { responseType: 'text' }
+    return this.http.post(this.url + '/' + endpoint, body, reqOpts)
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.put(this.url + '/' + endpoint, body, reqOpts)
   }
 
   delete(endpoint: string, reqOpts?: any) {
-    return this.http.delete(this.url + '/' + endpoint, reqOpts);
-  }
-
-  patch(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.delete(this.url + '/' + endpoint, reqOpts)
   }
 }

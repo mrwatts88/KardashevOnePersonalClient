@@ -1,35 +1,52 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { Camera } from '@ionic-native/camera';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
-import { IonicStorageModule, Storage } from '@ionic/storage';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { Settings } from '../providers/settings/settings';
-import { User } from '../providers/user/user';
-import { Api } from '../providers/api/api';
-import { MyApp } from './app.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http'
+import { ErrorHandler, NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { Camera } from '@ionic-native/camera'
+import { SplashScreen } from '@ionic-native/splash-screen'
+import { StatusBar } from '@ionic-native/status-bar'
+import { IonicStorageModule, Storage } from '@ionic/storage'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular'
+import { Settings } from '../providers/settings/settings'
+import { UserProvider } from '../providers/user/user'
+import { Api } from '../providers/api/api'
+import { MyApp } from './app.component'
 import { ScreenOrientation } from '@ionic-native/screen-orientation'
-import { DeliverySend } from '../providers/delivery-send/delivery-send';
-import { ItemCreatePage } from '../pages/item-create/item-create';
-import { SendPage } from '../pages/send/send';
-import { ReceivePage } from '../pages/receive/receive';
-import { HistoryPage } from '../pages/history/history';
-import { SettingsPage } from '../pages/settings/settings';
-import { WelcomePage } from '../pages/welcome/welcome';
-import { TabsPage } from '../pages/tabs/tabs';
-import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
-import { ItemDetailPage } from '../pages/item-detail/item-detail';
-import { DeliveryReceive } from '../providers/delivery-receive/delivery-receive';
+import { ItemCreatePage } from '../pages/item-create/item-create'
+import { SendPage } from '../pages/send/send'
+import { ReceivePage } from '../pages/receive/receive'
+import { HistoryPage } from '../pages/history/history'
+import { SettingsPage } from '../pages/settings/settings'
+import { WelcomePage } from '../pages/welcome/welcome'
+import { TabsPage } from '../pages/tabs/tabs'
+import { LoginPage } from '../pages/login/login'
+import { SignupPage } from '../pages/signup/signup'
+import { ItemDetailPage } from '../pages/item-detail/item-detail'
+import { FcmProvider } from '../providers/fcm/fcm'
+import { FCM } from '@ionic-native/fcm'
+import * as firebase from 'firebase'
+import { FirestoreProvider } from '../providers/firestore/firestore'
+import { ObservableProvider } from '../providers/observable/observable'
+import { PopoverPage } from '../pages/popover/popover'
+import { ShipmentProvider } from '../providers/shipment/shipment';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAkj_efhVNfIFWu51mNOlpfcIlU6tkvT8g",
+  authDomain: "kardashevonefirebase.firebaseapp.com",
+  databaseURL: "https://kardashevonefirebase.firebaseio.com",
+  projectId: "kardashevonefirebase",
+  storageBucket: "kardashevonefirebase.appspot.com",
+  messagingSenderId: "471510457689"
+}
+
+firebase.initializeApp(firebaseConfig)
+
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
 
 export function provideSettings(storage: Storage) {
@@ -41,10 +58,10 @@ export function provideSettings(storage: Storage) {
    */
   return new Settings(storage, {
     option1: true,
-    option2: 'Ionitron J. Framework',
+    option2: 'Test',
     option3: '3',
     option4: 'Hello'
-  });
+  })
 }
 
 @NgModule({
@@ -59,7 +76,8 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     LoginPage,
     SignupPage,
-    ItemDetailPage
+    ItemDetailPage,
+    PopoverPage
   ],
   imports: [
     BrowserModule,
@@ -86,13 +104,12 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     LoginPage,
     SignupPage,
-    ItemDetailPage
+    ItemDetailPage,
+    PopoverPage
   ],
   providers: [
     Api,
-    User,
-    DeliverySend,
-    DeliveryReceive,
+    UserProvider,
     Camera,
     ScreenOrientation,
     SplashScreen,
@@ -100,6 +117,12 @@ export function provideSettings(storage: Storage) {
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    FcmProvider,
+    FCM,
+    FirestoreProvider,
+    UserProvider,
+    ObservableProvider,
+    ShipmentProvider
   ]
 })
 export class AppModule { }
